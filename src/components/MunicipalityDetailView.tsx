@@ -677,7 +677,6 @@ export function MunicipalityDetailView() {
                           <li>Todo o conteúdo do Relatório simples</li>
                           <li>Status detalhado dos 4 entregáveis RIL com critérios de aceite</li>
                           <li>Tabela completa dos 10 multiplicadores locais com contatos</li>
-                          <li>Análise de contexto territorial e vocação socioeconômica</li>
                           <li>Matriz de riscos operacionais e estratégias de mitigação</li>
                           <li>Parecer analítico da facilitação e termo de validação</li>
                         </ul>
@@ -931,22 +930,9 @@ export function MunicipalityDetailView() {
               </table>
             </section>
 
-            {/* Bloco 6: Contexto Territorial & Análise Operacional (Detalhamento Extra) */}
+            {/* Bloco 6: Matriz de Riscos & Diretrizes de Mitigação (Detalhamento Extra) */}
             <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">VI. CONTEXTO TERRITORIAL & CAPACIDADE OPERACIONAL LOCAL</h2>
-              <div className="print-dossier__text-box">
-                <p>
-                  <strong>Contexto Regional e Porte:</strong> O município de {selectedMunicipality.name} ({selectedMunicipality.state}) situa-se na Região {selectedMunicipality.region}, possuindo classificação demográfica de {selectedMunicipality.populationSize.toLowerCase()} com {selectedMunicipality.population.toLocaleString('pt-BR')} habitantes. Essa conformação territorial demanda soluções que otimizem os recursos técnicos existentes e acelerem a interoperabilidade dos sistemas legados das secretarias municipais.
-                </p>
-                <p style={{ marginTop: '6px' }}>
-                  <strong>Aderência à Trilha Temática:</strong> Alocado na trilha de <em>{TRACK_LABELS[selectedMunicipality.track]}</em>, o plano de facilitação prioriza a capacitação prática dos servidores com ferramentas de suporte à decisão, desburocratização de fluxos de atendimento ao cidadão e estabelecimento de salvaguardas de conformidade com a LGPD e normas de governança pública de dados.
-                </p>
-              </div>
-            </section>
-
-            {/* Bloco 7: Matriz de Riscos & Diretrizes de Mitigação (Detalhamento Extra) */}
-            <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">VII. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
+              <h2 className="print-dossier__section-title">VI. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
               <table className="print-dossier__table">
                 <thead>
                   <tr>
@@ -975,9 +961,9 @@ export function MunicipalityDetailView() {
               </table>
             </section>
 
-            {/* Bloco 8: Parecer e Termo de Validação Operacional */}
+            {/* Bloco 7: Parecer e Termo de Validação Operacional */}
             <section className="print-dossier__section print-break-inside-avoid">
-              <h2 className="print-dossier__section-title">VIII. TERMO DE CIÊNCIA E VALIDAÇÃO OPERACIONAL</h2>
+              <h2 className="print-dossier__section-title">VII. TERMO DE CIÊNCIA E VALIDAÇÃO OPERACIONAL</h2>
               <div className="print-dossier__text-box">
                 <p>
                   As informações registradas neste dossiê refletem as evidências apuradas nos encontros quinzenais de facilitação, nos diagnósticos de maturidade e no acompanhamento dos entregáveis da jornada de transformação digital e inteligência artificial da Rede de Inovação Local (RIL).
