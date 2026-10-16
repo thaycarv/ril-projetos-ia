@@ -717,7 +717,6 @@ export function MunicipalityDetailView() {
         <header className="print-dossier__header">
           <div className="print-dossier__brand">
             <span className="print-dossier__badge">REDE DE INOVAÇÃO LOCAL (RIL BRASIL)</span>
-            <span className="print-dossier__subbadge">PROGRAMA GOVERNOS NA ERA DA IA</span>
           </div>
           <h1 className="print-dossier__title">
             DOSSIÊ EXECUTIVO DE GESTÃO MUNICIPAL: {selectedMunicipality.name.toUpperCase()} ({selectedMunicipality.state})
@@ -847,21 +846,23 @@ export function MunicipalityDetailView() {
           </table>
 
           <div style={{ marginTop: '8px' }}>
-            <h3 className="print-dossier__subtitle">Compromissos Operacionais e Próximos Passos (Plano de 15 Dias):</h3>
+            <h3 className="print-dossier__subtitle">Compromissos Operacionais e Próximos Passos:</h3>
             <table className="print-dossier__table">
               <thead>
                 <tr>
-                  <th style={{ width: '10%', textAlign: 'center' }}>Item</th>
-                  <th style={{ width: '60%' }}>Ação Pactuada</th>
-                  <th style={{ width: '30%' }}>Responsabilidade Compartilhada</th>
+                  <th style={{ width: '8%', textAlign: 'center' }}>Item</th>
+                  <th style={{ width: '92%' }}>Ação Pactuada e Próximos Passos</th>
                 </tr>
               </thead>
               <tbody>
                 {selectedMunicipality.biweeklyMeeting.actionItems.map((action, idx) => (
                   <tr key={idx}>
-                    <td style={{ textAlign: 'center' }}>0{idx + 1}</td>
-                    <td>{action}</td>
-                    <td>Ponto Focal Local e Articuladores Setoriais</td>
+                    <td style={{ textAlign: 'center', fontWeight: 700, color: '#2d4533', backgroundColor: '#f8fafc' }}>
+                      0{idx + 1}
+                    </td>
+                    <td style={{ padding: '6pt 10pt', fontSize: '8pt', lineHeight: 1.5 }}>
+                      {action}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -903,9 +904,9 @@ export function MunicipalityDetailView() {
               </table>
             </section>
 
-            {/* Bloco 5: Equipe de 10 Multiplicadores Locais */}
+            {/* Bloco 5: Equipe de Multiplicadores Locais */}
             <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">V. QUADRO DE MULTIPLICADORES LOCAIS (10 LIDERANÇAS MUNICIPAIS)</h2>
+              <h2 className="print-dossier__section-title">V. QUADRO DE MULTIPLICADORES LOCAIS</h2>
               <table className="print-dossier__table">
                 <thead>
                   <tr>
