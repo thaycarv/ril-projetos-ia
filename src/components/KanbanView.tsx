@@ -19,6 +19,7 @@ export function KanbanView({ onOpenDetail }: KanbanViewProps) {
     municipalities,
     searchQuery,
     setSearchQuery,
+    kpiFilter,
     onlyAttention,
     setOnlyAttention,
     selectedRegion,
@@ -31,10 +32,18 @@ export function KanbanView({ onOpenDetail }: KanbanViewProps) {
       m.state.toLowerCase().includes(searchQuery.toLowerCase()) ||
       m.focalPoint.toLowerCase().includes(searchQuery.toLowerCase())
 
-    const matchesAttention = onlyAttention ? m.attention.hasAttention : true
+    let matchesKpi = true
+    if (kpiFilter === 'attention') {
+      matchesKpi = m.attention.hasAttention
+    } else if (kpiFilter === 'diagnostics') {
+      matchesKpi = ['formacao', 'multiplicacao', 'concluido'].includes(m.stage)
+    } else if (kpiFilter === 'completed') {
+      matchesKpi = m.stage === 'concluido'
+    }
+
     const matchesRegion = selectedRegion === 'Todas' ? true : m.region === selectedRegion
 
-    return matchesSearch && matchesAttention && matchesRegion
+    return matchesSearch && matchesKpi && matchesRegion
   })
 
   const getStageMunicipalities = (stage: MunicipalityStage): Municipality[] => {

@@ -37,4 +37,44 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     expect(screen.getByText('Pelotas')).toBeInTheDocument()
     expect(screen.queryByText('Curitiba')).not.toBeInTheDocument()
   })
+
+  it('filters by diagnostics completed and completed cycles when KPI cards are clicked', () => {
+    render(<App />)
+
+    // Click Ciclos Concluídos
+    const ciclosCard = screen.getByRole('button', { name: /ciclos concluídos/i })
+    fireEvent.click(ciclosCard)
+
+    expect(screen.getByText('Curitiba')).toBeInTheDocument()
+    expect(screen.queryByText('Sobral')).not.toBeInTheDocument()
+
+    // Click Diagnósticos Realizados
+    const diagCard = screen.getByRole('button', { name: /diagnósticos realizados/i })
+    fireEvent.click(diagCard)
+
+    expect(screen.getByText('Santos')).toBeInTheDocument()
+    expect(screen.queryByText('Sobral')).not.toBeInTheDocument()
+  })
+
+  it('allows navigating and selecting municipalities via suspended dropdown in detail view', () => {
+    render(<App />)
+
+    // Open detail view via top toggle
+    const munNavBtn = screen.getByRole('button', { name: /ficha one-page/i })
+    fireEvent.click(munNavBtn)
+
+    // Check trigger button is present
+    const triggerBtn = screen.getByRole('button', { name: /sobral/i })
+    expect(triggerBtn).toBeInTheDocument()
+
+    // Open suspended dropdown
+    fireEvent.click(triggerBtn)
+    expect(screen.getByPlaceholderText(/buscar entre os 40 municípios/i)).toBeInTheDocument()
+
+    // Click next arrow
+    const nextBtn = screen.getByRole('button', { name: /próximo município/i })
+    fireEvent.click(nextBtn)
+
+    expect(screen.getAllByText(/pelotas/i).length).toBeGreaterThanOrEqual(1)
+  })
 })

@@ -4,6 +4,8 @@ import { buildSeedMunicipalities } from '../data/municipalitiesSeed'
 
 const STORAGE_KEY = 'ril.program.v1'
 
+export type KpiFilter = 'all' | 'attention' | 'diagnostics' | 'completed'
+
 interface ProgramContextValue {
   municipalities: Municipality[]
   selectedMunicipalityId: string
@@ -13,6 +15,9 @@ interface ProgramContextValue {
   setSearchQuery: (q: string) => void
   onlyAttention: boolean
   setOnlyAttention: (val: boolean) => void
+  kpiFilter: KpiFilter
+  setKpiFilter: (filter: KpiFilter) => void
+  toggleKpiFilter: (filter: KpiFilter) => void
   selectedRegion: string
   setSelectedRegion: (region: string) => void
   selectMunicipality: (id: string) => void
@@ -43,8 +48,15 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
   })
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [onlyAttention, setOnlyAttention] = useState(false)
+  const [kpiFilter, setKpiFilter] = useState<KpiFilter>('all')
   const [selectedRegion, setSelectedRegion] = useState('Todas')
+
+  const toggleKpiFilter = (filter: KpiFilter) => {
+    setKpiFilter(prev => (prev === filter ? 'all' : filter))
+  }
+
+  const onlyAttention = kpiFilter === 'attention'
+  const setOnlyAttention = (val: boolean) => setKpiFilter(val ? 'attention' : 'all')
 
   useEffect(() => {
     try {
@@ -140,6 +152,9 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
         setSearchQuery,
         onlyAttention,
         setOnlyAttention,
+        kpiFilter,
+        setKpiFilter,
+        toggleKpiFilter,
         selectedRegion,
         setSelectedRegion,
         selectMunicipality,

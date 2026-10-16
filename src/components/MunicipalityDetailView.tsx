@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
+  Building2,
   Users,
   Brain,
   CalendarCheck,
@@ -8,6 +9,9 @@ import {
   Mail,
   Search,
   CheckCircle2,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
 import { useProgram } from '../context/ProgramContext'
 import type { MunicipalityStage, Deliverable } from '../types'
@@ -36,16 +40,51 @@ export function MunicipalityDetailView() {
     toggleAttention,
   } = useProgram()
 
-  const [listSearch, setListSearch] = useState('')
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [dropdownSearch, setDropdownSearch] = useState('')
+  const [onlyAttentionInDropdown, setOnlyAttentionInDropdown] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dropdownOpen])
 
   if (!selectedMunicipality) {
     return <div className="page-empty">Nenhum município selecionado.</div>
   }
 
-  const filteredList = municipalities.filter(m =>
-    m.name.toLowerCase().includes(listSearch.toLowerCase()) ||
-    m.state.toLowerCase().includes(listSearch.toLowerCase())
-  )
+  const currentIndex = municipalities.findIndex(m => m.id === selectedMunicipality.id)
+
+  const handlePrev = () => {
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : municipalities.length - 1
+    selectMunicipality(municipalities[prevIndex].id)
+  }
+
+  const handleNext = () => {
+    const nextIndex = currentIndex < municipalities.length - 1 ? currentIndex + 1 : 0
+    selectMunicipality(municipalities[nextIndex].id)
+  }
+
+  const filteredDropdownList = municipalities.filter(m => {
+    const matchesSearch =
+      m.name.toLowerCase().includes(dropdownSearch.toLowerCase()) ||
+      m.state.toLowerCase().includes(dropdownSearch.toLowerCase()) ||
+      m.focalPoint.toLowerCase().includes(dropdownSearch.toLowerCase())
+
+    const matchesAttention = onlyAttentionInDropdown ? m.attention.hasAttention : true
+    return matchesSearch && matchesAttention
+  })
 
   const handleNextStatus = (deliverable: Deliverable) => {
     const sequence: Deliverable['status'][] = ['pendente', 'em_andamento', 'entregue']
@@ -54,42 +93,120 @@ export function MunicipalityDetailView() {
   }
 
   return (
-    <div className="detail-view">
-      {/* Coluna Esquerda: Seletor Rápido dos 40 Municípios */}
-      <aside className="municipality-list-pane">
-        <div className="search-input-wrap" style={{ width: '100%' }}>
-          <Search size={14} color="var(--muted)" />
-          <input
-            type="text"
-            placeholder="Filtrar município..."
-            value={listSearch}
-            onChange={e => setListSearch(e.target.value)}
-          />
-        </div>
+    <div className="detail-view--full">
+      {/* Barra Suspensa de Navegação e Filtragem dos Municípios */}
+      <div className="municipality-picker-bar">
+        <div className="picker-main-group" ref={dropdownRef}>
+          <button
+            type="button"
+            className="picker-trigger-btn"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            aria-expanded={dropdownOpen}
+            aria-haspopup="listbox"
+          >
+            <Building2 size={16} color="var(--primary)" />
+            <strong>{selectedMunicipality.name} ({selectedMunicipality.state})</strong>
+            <span className="municipality-card__state">{STAGE_LABELS[selectedMunicipality.stage]}</span>
+            <ChevronDown size={14} color="var(--muted)" style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+          </button>
 
-        <div className="municipality-list-scroll">
-          {filteredList.map(m => (
-            <button
-              key={m.id}
-              type="button"
-              className={`list-item-btn ${m.id === selectedMunicipality.id ? 'is-active' : ''}`}
-              onClick={() => selectMunicipality(m.id)}
-            >
-              <div>
-                <strong className="list-item-name">{m.name}</strong>
-                <p className="list-item-stage">{STAGE_LABELS[m.stage]}</p>
+          {/* Menu Dropdown Suspenso */}
+          {dropdownOpen && (
+            <div className="suspended-dropdown" role="listbox">
+              <div className="suspended-dropdown__search">
+                <Search size={14} color="var(--muted)" />
+                <input
+                  type="text"
+                  placeholder="Buscar entre os 40 municípios..."
+                  value={dropdownSearch}
+                  onChange={e => setDropdownSearch(e.target.value)}
+                  autoFocus
+                />
               </div>
-              {m.attention.hasAttention ? (
-                <AlertTriangle size={14} color="var(--warning)" />
-              ) : (
-                <span className="municipality-card__state">{m.state}</span>
-              )}
-            </button>
-          ))}
-        </div>
-      </aside>
 
-      {/* Coluna Direita: Ficha One-Page do Município Selecionado */}
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <button
+                  type="button"
+                  className={`pill-btn ${onlyAttentionInDropdown ? 'is-attention-active' : ''}`}
+                  onClick={() => setOnlyAttentionInDropdown(!onlyAttentionInDropdown)}
+                  style={{ fontSize: '0.68rem', padding: '4px 8px' }}
+                >
+                  <AlertTriangle size={12} />
+                  <span>Apenas Pontos de Atenção</span>
+                </button>
+              </div>
+
+              <div className="suspended-dropdown__list">
+                {filteredDropdownList.map(m => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    className={`suspended-item-btn ${m.id === selectedMunicipality.id ? 'is-active' : ''}`}
+                    onClick={() => {
+                      selectMunicipality(m.id)
+                      setDropdownOpen(false)
+                    }}
+                    role="option"
+                    aria-selected={m.id === selectedMunicipality.id}
+                  >
+                    <div>
+                      <strong style={{ fontSize: '0.84rem', color: 'var(--ink)' }}>{m.name}</strong>
+                      <span style={{ fontSize: '0.68rem', color: 'var(--muted)', marginLeft: '6px' }}>({m.state})</span>
+                      <p style={{ fontSize: '0.65rem', color: 'var(--muted)', marginTop: '2px' }}>{STAGE_LABELS[m.stage]}</p>
+                    </div>
+
+                    {m.attention.hasAttention ? (
+                      <span className="status-tag status-tag--attention">
+                        <AlertTriangle size={10} /> Verificar
+                      </span>
+                    ) : (
+                      <span className="municipality-card__state">{m.region}</span>
+                    )}
+                  </button>
+                ))}
+                {filteredDropdownList.length === 0 && (
+                  <p style={{ fontSize: '0.75rem', color: 'var(--muted)', padding: '12px', textAlign: 'center' }}>
+                    Nenhum município encontrado.
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Setas Anterior / Próximo */}
+          <div className="picker-nav-arrows">
+            <button
+              type="button"
+              className="picker-arrow-btn"
+              onClick={handlePrev}
+              title="Município anterior"
+              aria-label="Município anterior"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              type="button"
+              className="picker-arrow-btn"
+              onClick={handleNext}
+              title="Próximo município"
+              aria-label="Próximo município"
+            >
+              <ChevronRight size={16} />
+            </button>
+            <span className="picker-counter">
+              {currentIndex + 1} de {municipalities.length}
+            </span>
+          </div>
+        </div>
+
+        {/* Informação Rápida da Região e Porte */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span className="municipality-card__state">{selectedMunicipality.populationSize}</span>
+          <span className="municipality-card__state">Região {selectedMunicipality.region}</span>
+        </div>
+      </div>
+
+      {/* Ficha One-Page do Município Selecionado em Largura Total */}
       <main className="municipality-fiche">
         <header className="fiche-header">
           <div className="fiche-title">
@@ -97,6 +214,7 @@ export function MunicipalityDetailView() {
               <h2>{selectedMunicipality.name}</h2>
               <span className="municipality-card__state">{selectedMunicipality.state}</span>
               <span className="municipality-card__state">{selectedMunicipality.region}</span>
+              <span className="municipality-card__state">{selectedMunicipality.population.toLocaleString('pt-BR')} hab.</span>
             </div>
             <p>
               Patrocinador: <strong>{selectedMunicipality.mayorOrSponsor}</strong> | Ponto Focal: <strong>{selectedMunicipality.focalPoint}</strong>
