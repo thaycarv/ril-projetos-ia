@@ -610,7 +610,7 @@ export function MunicipalityDetailView() {
                     <h4>Emissão de Relatório do Município</h4>
                   </div>
                   <p>
-                    {selectedMunicipality.name} ({selectedMunicipality.state}) | Selecione o nível de detalhamento do documento
+                    {selectedMunicipality.name} ({selectedMunicipality.state})
                   </p>
                 </div>
                 <button
@@ -626,29 +626,23 @@ export function MunicipalityDetailView() {
 
               <div className="report-modal-body">
                 <p className="report-modal-intro">
-                  Escolha as informações que deseja incluir no documento oficial. O layout de impressão é estruturado institucionalmente como dossiê formal de gestão, otimizado para formato A4.
+                  Escolha as informações que deseja incluir no documento:
                 </p>
 
                 <div className="report-options-grid">
                   {/* Opção 1: Relatório Simples */}
                   <div className="report-choice-card">
-                    <div className="report-choice-card__badge report-choice-card__badge--simple">
-                      Síntese Executiva
-                    </div>
                     <div className="report-choice-card__header">
                       <FileText size={20} color="var(--primary)" />
                       <h5>Relatório simples</h5>
                     </div>
-                    <p className="report-choice-card__desc">
-                      Reúne os dados essenciais de identificação, o diagnóstico de maturidade em IA e o acompanhamento dos encontros quinzenais com as ações acordadas.
-                    </p>
                     <div className="report-choice-card__items">
                       <span className="report-choice-card__items-title">Conteúdo incluído:</span>
                       <ul>
-                        <li>Identificação institucional, liderança e articulador(a) local</li>
-                        <li>Diagnóstico de maturidade nos 4 eixos estratégicos de IA</li>
-                        <li>Frequência nos encontros e síntese da última reunião</li>
-                        <li>Compromissos e plano de ação imediato pactuado</li>
+                        <li>Identificação</li>
+                        <li>Diagnóstico</li>
+                        <li>Frequência e ata da última reunião</li>
+                        <li>Compromissos e planos de ação</li>
                       </ul>
                     </div>
                     <button
@@ -663,18 +657,12 @@ export function MunicipalityDetailView() {
 
                   {/* Opção 2: Relatório Completo */}
                   <div className="report-choice-card report-choice-card--complete">
-                    <div className="report-choice-card__badge report-choice-card__badge--complete">
-                      Dossiê Estratégico Ampliado
-                    </div>
                     <div className="report-choice-card__header">
                       <ShieldCheck size={20} color="var(--primary)" />
                       <h5>Relatório completo</h5>
                     </div>
-                    <p className="report-choice-card__desc">
-                      Dossiê aprofundado com todo o conteúdo do relatório simples, cronograma de entregas, equipe de 10 multiplicadores, contexto territorial, matriz de riscos e validação operacional.
-                    </p>
                     <div className="report-choice-card__items">
-                      <span className="report-choice-card__items-title">Conteúdo incluído (com detalhamento extra):</span>
+                      <span className="report-choice-card__items-title">Conteúdo incluído:</span>
                       <ul>
                         <li>Todo o conteúdo do Relatório simples</li>
                         <li>Status detalhado dos 4 entregáveis RIL com critérios de aceite</li>
@@ -725,7 +713,7 @@ export function MunicipalityDetailView() {
           </h1>
           <div className="print-dossier__meta-strip">
             <div>
-              <strong>Modalidade:</strong> {reportType === 'simples' ? 'Relatório simples (Síntese Executiva)' : 'Relatório completo (Dossiê Estratégico Ampliado)'}
+              <strong>Modalidade:</strong> {reportType === 'simples' ? 'Relatório simples' : 'Relatório completo'}
             </div>
             <div>
               <strong>Data de Emissão:</strong> {new Date().toLocaleDateString('pt-BR')}
