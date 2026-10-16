@@ -873,7 +873,7 @@ export function MunicipalityDetailView() {
         {reportType === 'completo' && (
           <>
             {/* Bloco 4: Cronograma de Entregas */}
-            <section className="print-dossier__section print-break-before">
+            <section className="print-dossier__section">
               <h2 className="print-dossier__section-title">IV. CRONOGRAMA & STATUS DETALHADO DAS ENTREGAS RIL</h2>
               <table className="print-dossier__table print-dossier__table--deliverables">
                 <thead>
@@ -904,7 +904,7 @@ export function MunicipalityDetailView() {
             </section>
 
             {/* Bloco 5: Equipe de Multiplicadores Locais */}
-            <section className="print-dossier__section">
+            <section className="print-dossier__section print-break-before">
               <h2 className="print-dossier__section-title">V. QUADRO DE MULTIPLICADORES LOCAIS</h2>
               <table className="print-dossier__table print-dossier__table--leaders">
                 <thead>
