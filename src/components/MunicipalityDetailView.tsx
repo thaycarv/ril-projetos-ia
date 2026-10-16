@@ -844,7 +844,7 @@ export function MunicipalityDetailView() {
             </tbody>
           </table>
 
-          <div style={{ marginTop: '8px' }}>
+          <div style={{ marginTop: '4pt' }}>
             <h3 className="print-dossier__subtitle">Compromissos Operacionais e Próximos Passos:</h3>
             <table className="print-dossier__table">
               <thead>
@@ -859,7 +859,7 @@ export function MunicipalityDetailView() {
                     <td style={{ textAlign: 'center', fontWeight: 700, color: '#2d4533', backgroundColor: '#f8fafc' }}>
                       0{idx + 1}
                     </td>
-                    <td style={{ padding: '6pt 10pt', fontSize: '8pt', lineHeight: 1.5 }}>
+                    <td style={{ padding: '2.5pt 5pt', fontSize: '7.2pt', lineHeight: 1.3 }}>
                       {action}
                     </td>
                   </tr>
