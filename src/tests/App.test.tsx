@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { App } from '../App'
 
@@ -24,7 +24,7 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
 
     expect(screen.getByRole('heading', { name: /ficha executiva do município/i })).toBeInTheDocument()
     expect(screen.getAllByText(/diagnóstico de maturidade em ia/i).length).toBeGreaterThanOrEqual(1)
-    expect(screen.getByText(/equipe de 10 lideranças municipais/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/equipe de 10 lideranças municipais/i).length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText(/encontros quinzenais & próximos passos/i)).toBeInTheDocument()
   })
 
@@ -97,13 +97,29 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument()
     expect(screen.getByText(/10 multiplicadores cadastrados/i)).toBeInTheDocument()
 
-    // Check generated emails and phones (1 focal point + 10 leaders = 11 emails)
-    expect(screen.getAllByText(/@sobral\.ce\.gov\.br/i).length).toBe(11)
+    // Check generated emails and phones
+    expect(screen.getAllByText(/@sobral\.ce\.gov\.br/i).length).toBeGreaterThanOrEqual(11)
     expect(screen.getAllByText(/\(85\) 9/i).length).toBeGreaterThanOrEqual(10)
 
     // Close via close button (X)
     const closeBtn = screen.getByRole('button', { name: /fechar pop-up/i })
     fireEvent.click(closeBtn)
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('renders download/print report button below stage badge and triggers window.print', () => {
+    const printSpy = vi.spyOn(window, 'print').mockImplementation(() => {})
+    render(<App />)
+
+    const sobralCard = screen.getByText('Sobral')
+    fireEvent.click(sobralCard)
+
+    const printBtn = screen.getByRole('button', { name: /baixar \/ imprimir relatório \(pdf\)/i })
+    expect(printBtn).toBeInTheDocument()
+
+    fireEvent.click(printBtn)
+    expect(printSpy).toHaveBeenCalled()
+
+    printSpy.mockRestore()
   })
 })

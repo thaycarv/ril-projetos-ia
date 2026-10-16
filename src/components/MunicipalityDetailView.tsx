@@ -15,6 +15,7 @@ import {
   ChevronRight,
   X,
   Compass,
+  FileDown,
 } from 'lucide-react'
 import { useProgram } from '../context/ProgramContext'
 import type { MunicipalityStage, Deliverable } from '../types'
@@ -243,12 +244,24 @@ export function MunicipalityDetailView() {
             </p>
           </div>
 
-          <div className="fiche-stage-badge">
-            <Compass size={16} color="var(--primary)" />
-            <div>
-              <span className="fiche-stage-badge__label">Etapa no Programa</span>
-              <strong className="fiche-stage-badge__value">{STAGE_LABELS[selectedMunicipality.stage]}</strong>
+          <div className="fiche-header-aside">
+            <div className="fiche-stage-badge">
+              <Compass size={16} color="var(--primary)" />
+              <div>
+                <span className="fiche-stage-badge__label">Etapa no Programa</span>
+                <strong className="fiche-stage-badge__value">{STAGE_LABELS[selectedMunicipality.stage]}</strong>
+              </div>
             </div>
+
+            <button
+              type="button"
+              className="btn-download-pdf"
+              onClick={() => window.print()}
+              title="Baixar ou imprimir relatório do município em PDF"
+            >
+              <FileDown size={15} />
+              <span>Baixar / Imprimir Relatório (PDF)</span>
+            </button>
           </div>
         </header>
 
@@ -445,6 +458,38 @@ export function MunicipalityDetailView() {
                 </button>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Seção Exclusiva para Relatório Impresso em PDF */}
+        <section className="print-only-leaders">
+          <div className="fiche-section">
+            <h3 className="fiche-section__title" style={{ fontSize: '0.9rem' }}>
+              <Users size={16} />
+              <span>Equipe de 10 Lideranças Municipais (Multiplicadores)</span>
+            </h3>
+            <table className="print-leaders-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Cargo</th>
+                  <th>Secretaria / Órgão</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedMunicipality.leaders?.map(l => (
+                  <tr key={l.id}>
+                    <td><strong>{l.name}</strong></td>
+                    <td>{l.role}</td>
+                    <td>{l.department}</td>
+                    <td>{l.email}</td>
+                    <td>{l.phone}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 

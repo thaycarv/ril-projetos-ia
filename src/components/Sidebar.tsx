@@ -58,7 +58,11 @@ export function Sidebar({ currentView, onViewChange, collapsed, onToggleCollapse
         {!collapsed && (
           <div className="facilitator-card">
             <small>Facilitador(a) RIL</small>
-            <strong>Acompanhamento: {indicators.totalMunicipalities} municípios</strong>
+            <strong>
+              Acompanhamento:
+              <br />
+              {indicators.totalMunicipalities} municípios
+            </strong>
           </div>
         )}
 

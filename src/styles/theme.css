@@ -734,6 +734,13 @@ a {
   margin-top: 4px;
 }
 
+.fiche-header-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
 .fiche-stage-badge {
   display: flex;
   align-items: center;
@@ -742,6 +749,7 @@ a {
   border: 1px solid rgba(2, 132, 199, 0.25);
   border-radius: var(--radius-md);
   padding: 8px 14px;
+  width: 100%;
 }
 
 .fiche-stage-badge__label {
@@ -758,6 +766,35 @@ a {
   font-size: 0.85rem;
   font-weight: 800;
   color: var(--ink);
+}
+
+.btn-download-pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background-color: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.btn-download-pdf:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.btn-download-pdf:active {
+  transform: translateY(0);
 }
 
 .fiche-grid {
@@ -1402,5 +1439,93 @@ a {
   }
   .kpi-strip {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Seção de Lideranças para Relatório Impresso */
+.print-only-leaders {
+  display: none;
+}
+
+.print-leaders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+  margin-top: 8px;
+}
+
+.print-leaders-table th,
+.print-leaders-table td {
+  border: 1px solid #cbd5e1;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.print-leaders-table th {
+  background-color: #f1f5f9;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Impressão Executiva em PDF */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sidebar,
+  .top-bar,
+  .municipality-picker-bar,
+  .btn-download-pdf,
+  .fiche-footer-actions,
+  .leaders-modal-overlay,
+  .btn-reset,
+  .sidebar-collapse-btn {
+    display: none !important;
+  }
+
+  .app-layout {
+    display: block !important;
+  }
+
+  .app-main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .detail-view--full {
+    padding: 0 !important;
+    gap: 12px !important;
+  }
+
+  .municipality-fiche {
+    gap: 12px !important;
+  }
+
+  .fiche-header,
+  .fiche-section {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+    break-inside: avoid;
+    padding: 14px !important;
+  }
+
+  .fiche-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .print-only-leaders {
+    display: block !important;
+    break-inside: avoid;
+    margin-top: 10px;
   }
 }
