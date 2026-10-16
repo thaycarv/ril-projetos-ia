@@ -9,6 +9,7 @@ import './styles/theme.css'
 
 function ProgramApp() {
   const [currentView, setCurrentView] = useState<'kanban' | 'detail'>('kanban')
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const { selectMunicipality } = useProgram()
 
   const handleOpenDetail = (municipalityId: string) => {
@@ -17,8 +18,13 @@ function ProgramApp() {
   }
 
   return (
-    <div className="app-layout">
-      <Sidebar currentView={currentView} onViewChange={setCurrentView} />
+    <div className={`app-layout ${sidebarCollapsed ? 'is-sidebar-collapsed' : ''}`}>
+      <Sidebar
+        currentView={currentView}
+        onViewChange={setCurrentView}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+      />
 
       <div className="main-content">
         <TopBar currentView={currentView} onViewChange={setCurrentView} />

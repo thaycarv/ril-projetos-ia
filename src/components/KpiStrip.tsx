@@ -1,4 +1,4 @@
-import { Building2, Users, AlertTriangle, FileCheck, Award } from 'lucide-react'
+import { Building2, AlertTriangle, FileCheck, Award } from 'lucide-react'
 import { useProgram } from '../context/ProgramContext'
 
 export function KpiStrip() {
@@ -14,13 +14,7 @@ export function KpiStrip() {
         <strong className="kpi-card__value">{indicators.totalMunicipalities}</strong>
       </article>
 
-      <article className="kpi-card">
-        <div className="kpi-card__top">
-          <span>Lideranças Municipais</span>
-          <Users size={16} />
-        </div>
-        <strong className="kpi-card__value">{indicators.totalLeaders}</strong>
-      </article>
+
 
       <article
         className={`kpi-card is-attention ${onlyAttention ? 'is-selected' : ''}`}
