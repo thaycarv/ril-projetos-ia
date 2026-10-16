@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { flushSync } from 'react-dom'
 import {
   Building2,
   Users,
@@ -112,11 +113,17 @@ export function MunicipalityDetailView() {
   })
 
   const handleTriggerPrint = (type: 'simples' | 'completo') => {
-    setReportType(type)
-    setReportModalOpen(false)
-    setTimeout(() => {
-      window.print()
-    }, 150)
+    const originalTitle = document.title
+    const cleanMunName = selectedMunicipality.name.replace(/\s+/g, '-')
+    document.title = `Relatorio-${type === 'simples' ? 'Simples' : 'Completo'}-${cleanMunName}-${selectedMunicipality.state}`
+
+    flushSync(() => {
+      setReportType(type)
+      setReportModalOpen(false)
+    })
+
+    window.print()
+    document.title = originalTitle
   }
 
   const handleNextStatus = (deliverable: Deliverable) => {
@@ -632,18 +639,20 @@ export function MunicipalityDetailView() {
                 <div className="report-options-grid">
                   {/* Opção 1: Relatório Simples */}
                   <div className="report-choice-card">
-                    <div className="report-choice-card__header">
-                      <FileText size={20} color="var(--primary)" />
-                      <h5>Relatório simples</h5>
-                    </div>
-                    <div className="report-choice-card__items">
-                      <span className="report-choice-card__items-title">Conteúdo incluído:</span>
-                      <ul>
-                        <li>Identificação</li>
-                        <li>Diagnóstico</li>
-                        <li>Frequência e ata da última reunião</li>
-                        <li>Compromissos e planos de ação</li>
-                      </ul>
+                    <div className="report-choice-card__content">
+                      <div className="report-choice-card__header">
+                        <FileText size={20} color="var(--primary)" />
+                        <h5>Relatório simples</h5>
+                      </div>
+                      <div className="report-choice-card__items">
+                        <span className="report-choice-card__items-title">Conteúdo incluído:</span>
+                        <ul>
+                          <li>Identificação</li>
+                          <li>Diagnóstico</li>
+                          <li>Frequência e ata da última reunião</li>
+                          <li>Compromissos e planos de ação</li>
+                        </ul>
+                      </div>
                     </div>
                     <button
                       type="button"
@@ -657,20 +666,22 @@ export function MunicipalityDetailView() {
 
                   {/* Opção 2: Relatório Completo */}
                   <div className="report-choice-card report-choice-card--complete">
-                    <div className="report-choice-card__header">
-                      <ShieldCheck size={20} color="var(--primary)" />
-                      <h5>Relatório completo</h5>
-                    </div>
-                    <div className="report-choice-card__items">
-                      <span className="report-choice-card__items-title">Conteúdo incluído:</span>
-                      <ul>
-                        <li>Todo o conteúdo do Relatório simples</li>
-                        <li>Status detalhado dos 4 entregáveis RIL com critérios de aceite</li>
-                        <li>Tabela completa dos 10 multiplicadores locais com contatos</li>
-                        <li>Análise de contexto territorial e vocação socioeconômica</li>
-                        <li>Matriz de riscos operacionais e estratégias de mitigação</li>
-                        <li>Parecer analítico da facilitação e termo de validação</li>
-                      </ul>
+                    <div className="report-choice-card__content">
+                      <div className="report-choice-card__header">
+                        <ShieldCheck size={20} color="var(--primary)" />
+                        <h5>Relatório completo</h5>
+                      </div>
+                      <div className="report-choice-card__items">
+                        <span className="report-choice-card__items-title">Conteúdo incluído:</span>
+                        <ul>
+                          <li>Todo o conteúdo do Relatório simples</li>
+                          <li>Status detalhado dos 4 entregáveis RIL com critérios de aceite</li>
+                          <li>Tabela completa dos 10 multiplicadores locais com contatos</li>
+                          <li>Análise de contexto territorial e vocação socioeconômica</li>
+                          <li>Matriz de riscos operacionais e estratégias de mitigação</li>
+                          <li>Parecer analítico da facilitação e termo de validação</li>
+                        </ul>
+                      </div>
                     </div>
                     <button
                       type="button"
