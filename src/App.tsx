@@ -28,10 +28,11 @@ function ProgramApp() {
 
       <div className="main-content">
         <TopBar currentView={currentView} onViewChange={setCurrentView} />
-        <KpiStrip />
-
         {currentView === 'kanban' ? (
-          <KanbanView onOpenDetail={handleOpenDetail} />
+          <>
+            <KpiStrip />
+            <KanbanView onOpenDetail={handleOpenDetail} />
+          </>
         ) : (
           <MunicipalityDetailView />
         )}

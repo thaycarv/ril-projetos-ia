@@ -16,6 +16,9 @@ import {
   X,
   Compass,
   FileDown,
+  Printer,
+  ShieldCheck,
+  FileText,
 } from 'lucide-react'
 import { useProgram } from '../context/ProgramContext'
 import type { MunicipalityStage, Deliverable } from '../types'
@@ -47,6 +50,8 @@ export function MunicipalityDetailView() {
   const [dropdownSearch, setDropdownSearch] = useState('')
   const [onlyAttentionInDropdown, setOnlyAttentionInDropdown] = useState(false)
   const [leadersModalOpen, setLeadersModalOpen] = useState(false)
+  const [reportModalOpen, setReportModalOpen] = useState(false)
+  const [reportType, setReportType] = useState<'simples' | 'completo'>('simples')
 
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -56,6 +61,7 @@ export function MunicipalityDetailView() {
       if (event.key === 'Escape') {
         setDropdownOpen(false)
         setLeadersModalOpen(false)
+        setReportModalOpen(false)
       }
     }
     document.addEventListener('keydown', handleKeyDown)
@@ -104,6 +110,14 @@ export function MunicipalityDetailView() {
     const matchesAttention = onlyAttentionInDropdown ? m.attention.hasAttention : true
     return matchesSearch && matchesAttention
   })
+
+  const handleTriggerPrint = (type: 'simples' | 'completo') => {
+    setReportType(type)
+    setReportModalOpen(false)
+    setTimeout(() => {
+      window.print()
+    }, 150)
+  }
 
   const handleNextStatus = (deliverable: Deliverable) => {
     const sequence: Deliverable['status'][] = ['pendente', 'em_andamento', 'entregue']
@@ -256,7 +270,7 @@ export function MunicipalityDetailView() {
             <button
               type="button"
               className="btn-download-pdf"
-              onClick={() => window.print()}
+              onClick={() => setReportModalOpen(true)}
               title="Baixar ou imprimir relatório do município em PDF"
             >
               <FileDown size={15} />
@@ -461,37 +475,6 @@ export function MunicipalityDetailView() {
           </div>
         </section>
 
-        {/* Seção Exclusiva para Relatório Impresso em PDF */}
-        <section className="print-only-leaders">
-          <div className="fiche-section">
-            <h3 className="fiche-section__title" style={{ fontSize: '0.9rem' }}>
-              <Users size={16} />
-              <span>Equipe de 10 Lideranças Municipais (Multiplicadores)</span>
-            </h3>
-            <table className="print-leaders-table">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Cargo</th>
-                  <th>Secretaria / Órgão</th>
-                  <th>E-mail</th>
-                  <th>Telefone</th>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedMunicipality.leaders?.map(l => (
-                  <tr key={l.id}>
-                    <td><strong>{l.name}</strong></td>
-                    <td>{l.role}</td>
-                    <td>{l.department}</td>
-                    <td>{l.email}</td>
-                    <td>{l.phone}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
 
         {/* Rodapé da Ficha: Acesso sob demanda à Equipe de 10 Lideranças */}
         <section className="fiche-footer-actions">
@@ -607,7 +590,418 @@ export function MunicipalityDetailView() {
             </div>
           </div>
         )}
+        {/* Modal de Seleção de Tipo de Relatório (PDF) */}
+        {reportModalOpen && (
+          <div
+            className="report-modal-overlay"
+            onClick={() => setReportModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Seleção de tipo de relatório para impressão em PDF"
+          >
+            <div
+              className="report-modal-window"
+              onClick={e => e.stopPropagation()}
+            >
+              <header className="report-modal-header">
+                <div className="report-modal-header__text">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Printer size={18} color="var(--primary)" />
+                    <h4>Emissão de Relatório do Município</h4>
+                  </div>
+                  <p>
+                    {selectedMunicipality.name} ({selectedMunicipality.state}) | Selecione o nível de detalhamento do documento
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="popover-close-btn"
+                  onClick={() => setReportModalOpen(false)}
+                  title="Fechar janela"
+                  aria-label="Fechar janela de relatório"
+                >
+                  <X size={18} />
+                </button>
+              </header>
+
+              <div className="report-modal-body">
+                <p className="report-modal-intro">
+                  Escolha as informações que deseja incluir no documento oficial. O layout de impressão é estruturado institucionalmente como dossiê formal de gestão, otimizado para formato A4.
+                </p>
+
+                <div className="report-options-grid">
+                  {/* Opção 1: Relatório Simples */}
+                  <div className="report-choice-card">
+                    <div className="report-choice-card__badge report-choice-card__badge--simple">
+                      Síntese Executiva
+                    </div>
+                    <div className="report-choice-card__header">
+                      <FileText size={20} color="var(--primary)" />
+                      <h5>Relatório simples</h5>
+                    </div>
+                    <p className="report-choice-card__desc">
+                      Reúne os dados essenciais de identificação, o diagnóstico de maturidade em IA e o acompanhamento dos encontros quinzenais com as ações acordadas.
+                    </p>
+                    <div className="report-choice-card__items">
+                      <span className="report-choice-card__items-title">Conteúdo incluído:</span>
+                      <ul>
+                        <li>Identificação institucional, liderança e articulador(a) local</li>
+                        <li>Diagnóstico de maturidade nos 4 eixos estratégicos de IA</li>
+                        <li>Frequência nos encontros e síntese da última reunião</li>
+                        <li>Compromissos e plano de ação imediato pactuado</li>
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn-generate-report btn-generate-report--simple"
+                      onClick={() => handleTriggerPrint('simples')}
+                    >
+                      <Printer size={15} />
+                      <span>Gerar Relatório simples</span>
+                    </button>
+                  </div>
+
+                  {/* Opção 2: Relatório Completo */}
+                  <div className="report-choice-card report-choice-card--complete">
+                    <div className="report-choice-card__badge report-choice-card__badge--complete">
+                      Dossiê Estratégico Ampliado
+                    </div>
+                    <div className="report-choice-card__header">
+                      <ShieldCheck size={20} color="var(--primary)" />
+                      <h5>Relatório completo</h5>
+                    </div>
+                    <p className="report-choice-card__desc">
+                      Dossiê aprofundado com todo o conteúdo do relatório simples, cronograma de entregas, equipe de 10 multiplicadores, contexto territorial, matriz de riscos e validação operacional.
+                    </p>
+                    <div className="report-choice-card__items">
+                      <span className="report-choice-card__items-title">Conteúdo incluído (com detalhamento extra):</span>
+                      <ul>
+                        <li>Todo o conteúdo do Relatório simples</li>
+                        <li>Status detalhado dos 4 entregáveis RIL com critérios de aceite</li>
+                        <li>Tabela completa dos 10 multiplicadores locais com contatos</li>
+                        <li>Análise de contexto territorial e vocação socioeconômica</li>
+                        <li>Matriz de riscos operacionais e estratégias de mitigação</li>
+                        <li>Parecer analítico da facilitação e termo de validação</li>
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn-generate-report btn-generate-report--complete"
+                      onClick={() => handleTriggerPrint('completo')}
+                    >
+                      <FileDown size={15} />
+                      <span>Gerar Relatório completo</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <footer className="report-modal-footer">
+                <span className="report-modal-footer__hint">
+                  Dica: na caixa de impressão, selecione "Salvar como PDF" e marque a opção "Gráficos de segundo plano".
+                </span>
+                <button
+                  type="button"
+                  className="btn-modal-close"
+                  onClick={() => setReportModalOpen(false)}
+                >
+                  Cancelar
+                </button>
+              </footer>
+            </div>
+          </div>
+        )}
       </main>
+
+      {/* Dossiê Executivo Formal para Impressão em PDF (Estrutura Institucional Oficial - Não é cópia de tela) */}
+      <article className={`print-dossier print-dossier--${reportType}`} aria-hidden="true">
+        <header className="print-dossier__header">
+          <div className="print-dossier__brand">
+            <span className="print-dossier__badge">REDE DE INOVAÇÃO LOCAL (RIL BRASIL)</span>
+            <span className="print-dossier__subbadge">PROGRAMA GOVERNOS NA ERA DA IA</span>
+          </div>
+          <h1 className="print-dossier__title">
+            DOSSIÊ EXECUTIVO DE GESTÃO MUNICIPAL: {selectedMunicipality.name.toUpperCase()} ({selectedMunicipality.state})
+          </h1>
+          <div className="print-dossier__meta-strip">
+            <div>
+              <strong>Modalidade:</strong> {reportType === 'simples' ? 'Relatório simples (Síntese Executiva)' : 'Relatório completo (Dossiê Estratégico Ampliado)'}
+            </div>
+            <div>
+              <strong>Data de Emissão:</strong> {new Date().toLocaleDateString('pt-BR')}
+            </div>
+            <div>
+              <strong>Facilitadora RIL:</strong> Thayâne Carvalho (Gestão de Projetos & Facilitação)
+            </div>
+          </div>
+        </header>
+
+        {/* Bloco 1: Identificação Institucional */}
+        <section className="print-dossier__section">
+          <h2 className="print-dossier__section-title">I. IDENTIFICAÇÃO E ESTRUTURA INSTITUCIONAL</h2>
+          <table className="print-dossier__table">
+            <tbody>
+              <tr>
+                <th style={{ width: '22%' }}>Município / UF:</th>
+                <td style={{ width: '28%' }}><strong>{selectedMunicipality.name} ({selectedMunicipality.state})</strong></td>
+                <th style={{ width: '22%' }}>Região Geográfica:</th>
+                <td style={{ width: '28%' }}>{selectedMunicipality.region}</td>
+              </tr>
+              <tr>
+                <th>Porte Demográfico:</th>
+                <td>{selectedMunicipality.populationSize} ({selectedMunicipality.population.toLocaleString('pt-BR')} habitantes)</td>
+                <th>Trilha do Programa:</th>
+                <td><strong>{TRACK_LABELS[selectedMunicipality.track]}</strong></td>
+              </tr>
+              <tr>
+                <th>Liderança Institucional:</th>
+                <td>{selectedMunicipality.mayorOrSponsor}</td>
+                <th>Etapa Vigente:</th>
+                <td><strong>{STAGE_LABELS[selectedMunicipality.stage]}</strong></td>
+              </tr>
+              <tr>
+                <th>Articulador(a) Local:</th>
+                <td>{selectedMunicipality.focalPoint}</td>
+                <th>Contato Institucional:</th>
+                <td>{selectedMunicipality.focalPointContact}</td>
+              </tr>
+              <tr>
+                <th>Situação Operacional:</th>
+                <td colSpan={3}>
+                  {selectedMunicipality.attention.hasAttention ? (
+                    <span style={{ color: '#b45309', fontWeight: 700 }}>
+                      [PONTO DE ATENÇÃO REGISTRADO] {selectedMunicipality.attention.reason} (Encaminhamento pactuado: {selectedMunicipality.attention.supportAction})
+                    </span>
+                  ) : (
+                    <span style={{ color: '#166534', fontWeight: 600 }}>
+                      [CONFORME] Operação regular e alinhada ao cronograma pactuado com a facilitação RIL.
+                    </span>
+                  )}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        {/* Bloco 2: Diagnóstico de Maturidade em Inteligência Artificial */}
+        <section className="print-dossier__section">
+          <h2 className="print-dossier__section-title">II. DIAGNÓSTICO DE MATURIDADE EM INTELIGÊNCIA ARTIFICIAL</h2>
+          <div className="print-dossier__text-box">
+            <p>
+              Classificação Geral do Município: <strong>{selectedMunicipality.maturityLevel.toUpperCase()}</strong>. O diagnóstico avalia a prontidão da administração pública municipal em quatro dimensões fundamentais para a implementação ética e sustentável de soluções analíticas.
+            </p>
+          </div>
+          <table className="print-dossier__table" style={{ marginTop: '8px' }}>
+            <thead>
+              <tr>
+                <th style={{ width: '30%' }}>Dimensão Avaliada</th>
+                <th style={{ width: '15%', textAlign: 'center' }}>Pontuação</th>
+                <th style={{ width: '20%' }}>Classificação</th>
+                <th style={{ width: '35%' }}>Diretriz Técnica RIL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Governança de Dados</strong></td>
+                <td style={{ textAlign: 'center' }}><strong>{selectedMunicipality.maturityScores.dataGovernance}%</strong></td>
+                <td>{selectedMunicipality.maturityScores.dataGovernance >= 70 ? 'Avançado' : selectedMunicipality.maturityScores.dataGovernance >= 50 ? 'Intermediário' : 'Inicial'}</td>
+                <td>Estruturação de repositórios, catalogação e integridade dos bancos cadastrais municipais.</td>
+              </tr>
+              <tr>
+                <td><strong>Prontidão Ética e LGPD</strong></td>
+                <td style={{ textAlign: 'center' }}><strong>{selectedMunicipality.maturityScores.ethicsAndLGPD}%</strong></td>
+                <td>{selectedMunicipality.maturityScores.ethicsAndLGPD >= 70 ? 'Avançado' : selectedMunicipality.maturityScores.ethicsAndLGPD >= 50 ? 'Intermediário' : 'Inicial'}</td>
+                <td>Salvaguardas de privacidade, consentimento informado e auditoria algorítmica de viés.</td>
+              </tr>
+              <tr>
+                <td><strong>Capacidade Técnica da Equipe</strong></td>
+                <td style={{ textAlign: 'center' }}><strong>{selectedMunicipality.maturityScores.technicalCapacity}%</strong></td>
+                <td>{selectedMunicipality.maturityScores.technicalCapacity >= 70 ? 'Avançado' : selectedMunicipality.maturityScores.technicalCapacity >= 50 ? 'Intermediário' : 'Inicial'}</td>
+                <td>Nível de literacia digital, domínio de prompts e capacidade de multiplicação interna.</td>
+              </tr>
+              <tr>
+                <td><strong>Aplicação Prática no Serviço Público</strong></td>
+                <td style={{ textAlign: 'center' }}><strong>{selectedMunicipality.maturityScores.practicalApplication}%</strong></td>
+                <td>{selectedMunicipality.maturityScores.practicalApplication >= 70 ? 'Avançado' : selectedMunicipality.maturityScores.practicalApplication >= 50 ? 'Intermediário' : 'Inicial'}</td>
+                <td>Projetos pilotos implantados para redução de filas e automação de rotinas cidadãs.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        {/* Bloco 3: Encontros Quinzenais & Plano de Ação */}
+        <section className="print-dossier__section">
+          <h2 className="print-dossier__section-title">III. ACOMPANHAMENTO DOS ENCONTROS QUINZENAIS & PLANO DE AÇÃO</h2>
+          <table className="print-dossier__table">
+            <tbody>
+              <tr>
+                <th style={{ width: '25%' }}>Presença das Lideranças:</th>
+                <td style={{ width: '25%' }}><strong>{selectedMunicipality.biweeklyMeeting.attendanceRate}%</strong></td>
+                <th style={{ width: '25%' }}>Multiplicação na Rede:</th>
+                <td style={{ width: '25%' }}><strong>{selectedMunicipality.multiplicationProgress}%</strong></td>
+              </tr>
+              <tr>
+                <th>Síntese da Reunião Quinzenal:</th>
+                <td colSpan={3}>{selectedMunicipality.biweeklyMeeting.summary}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style={{ marginTop: '8px' }}>
+            <h3 className="print-dossier__subtitle">Compromissos Operacionais e Próximos Passos (Plano de 15 Dias):</h3>
+            <table className="print-dossier__table">
+              <thead>
+                <tr>
+                  <th style={{ width: '10%', textAlign: 'center' }}>Item</th>
+                  <th style={{ width: '60%' }}>Ação Pactuada</th>
+                  <th style={{ width: '30%' }}>Responsabilidade Compartilhada</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedMunicipality.biweeklyMeeting.actionItems.map((action, idx) => (
+                  <tr key={idx}>
+                    <td style={{ textAlign: 'center' }}>0{idx + 1}</td>
+                    <td>{action}</td>
+                    <td>Ponto Focal Local e Articuladores Setoriais</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Seções Adicionais Exclusivas do Relatório Completo */}
+        {reportType === 'completo' && (
+          <>
+            {/* Bloco 4: Cronograma de Entregas */}
+            <section className="print-dossier__section print-break-before">
+              <h2 className="print-dossier__section-title">IV. CRONOGRAMA & STATUS DETALHADO DAS ENTREGAS RIL</h2>
+              <table className="print-dossier__table">
+                <thead>
+                  <tr>
+                    <th style={{ width: '25%' }}>Entregável Oficial</th>
+                    <th style={{ width: '45%' }}>Descrição e Escopo Técnico</th>
+                    <th style={{ width: '15%', textAlign: 'center' }}>Status</th>
+                    <th style={{ width: '15%' }}>Evidência Requerida</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedMunicipality.deliverables.map(deliv => (
+                    <tr key={deliv.id}>
+                      <td><strong>{deliv.title}</strong></td>
+                      <td>{deliv.description}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        <strong style={{
+                          color: deliv.status === 'entregue' ? '#166534' : deliv.status === 'em_andamento' ? '#b45309' : '#475569'
+                        }}>
+                          {deliv.status === 'entregue' ? 'Entregue' : deliv.status === 'em_andamento' ? 'Em Andamento' : 'Pendente'}
+                        </strong>
+                      </td>
+                      <td>{deliv.status === 'entregue' ? 'Documento homologado' : 'Validação com articulador'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            {/* Bloco 5: Equipe de 10 Multiplicadores Locais */}
+            <section className="print-dossier__section">
+              <h2 className="print-dossier__section-title">V. QUADRO DE MULTIPLICADORES LOCAIS (10 LIDERANÇAS MUNICIPAIS)</h2>
+              <table className="print-dossier__table">
+                <thead>
+                  <tr>
+                    <th style={{ width: '22%' }}>Nome</th>
+                    <th style={{ width: '18%' }}>Cargo</th>
+                    <th style={{ width: '22%' }}>Secretaria / Órgão</th>
+                    <th style={{ width: '22%' }}>E-mail Institucional</th>
+                    <th style={{ width: '16%' }}>Telefone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedMunicipality.leaders?.map(leader => (
+                    <tr key={leader.id}>
+                      <td><strong>{leader.name}</strong></td>
+                      <td>{leader.role}</td>
+                      <td>{leader.department}</td>
+                      <td>{leader.email}</td>
+                      <td>{leader.phone}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            {/* Bloco 6: Contexto Territorial & Análise Operacional (Detalhamento Extra) */}
+            <section className="print-dossier__section">
+              <h2 className="print-dossier__section-title">VI. CONTEXTO TERRITORIAL & CAPACIDADE OPERACIONAL LOCAL</h2>
+              <div className="print-dossier__text-box">
+                <p>
+                  <strong>Contexto Regional e Porte:</strong> O município de {selectedMunicipality.name} ({selectedMunicipality.state}) situa-se na Região {selectedMunicipality.region}, possuindo classificação demográfica de {selectedMunicipality.populationSize.toLowerCase()} com {selectedMunicipality.population.toLocaleString('pt-BR')} habitantes. Essa conformação territorial demanda soluções que otimizem os recursos técnicos existentes e acelerem a interoperabilidade dos sistemas legados das secretarias municipais.
+                </p>
+                <p style={{ marginTop: '6px' }}>
+                  <strong>Aderência à Trilha Temática:</strong> Alocado na trilha de <em>{TRACK_LABELS[selectedMunicipality.track]}</em>, o plano de facilitação prioriza a capacitação prática dos servidores com ferramentas de suporte à decisão, desburocratização de fluxos de atendimento ao cidadão e estabelecimento de salvaguardas de conformidade com a LGPD e normas de governança pública de dados.
+                </p>
+              </div>
+            </section>
+
+            {/* Bloco 7: Matriz de Riscos & Diretrizes de Mitigação (Detalhamento Extra) */}
+            <section className="print-dossier__section">
+              <h2 className="print-dossier__section-title">VII. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
+              <table className="print-dossier__table">
+                <thead>
+                  <tr>
+                    <th style={{ width: '25%' }}>Fator de Risco Mapeado</th>
+                    <th style={{ width: '15%', textAlign: 'center' }}>Severidade</th>
+                    <th style={{ width: '60%' }}>Estratégia Preventiva e Diretriz de Mitigação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Rotatividade de Servidores</strong></td>
+                    <td style={{ textAlign: 'center' }}>Média</td>
+                    <td>Formação em rede com 10 multiplicadores cadastrados e repositório documental compartilhado para garantir a perenidade do conhecimento gerado.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Conformidade e Proteção de Dados (LGPD)</strong></td>
+                    <td style={{ textAlign: 'center' }}>Alta</td>
+                    <td>Aplicação de salvaguardas prévias, checklists éticos e treinamento dos servidores para vedar o processamento de dados pessoais sensíveis em ferramentas públicas.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sobrecarga Operacional nas Secretarias</strong></td>
+                    <td style={{ textAlign: 'center' }}>Média</td>
+                    <td>Estruturação de encontros quinzenais ágeis de 45 minutos e entrega de modelos pré-configurados de uso imediato na rotina administrativa.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            {/* Bloco 8: Parecer e Termo de Validação Operacional */}
+            <section className="print-dossier__section print-break-inside-avoid">
+              <h2 className="print-dossier__section-title">VIII. TERMO DE CIÊNCIA E VALIDAÇÃO OPERACIONAL</h2>
+              <div className="print-dossier__text-box">
+                <p>
+                  As informações registradas neste dossiê refletem as evidências apuradas nos encontros quinzenais de facilitação, nos diagnósticos de maturidade e no acompanhamento dos entregáveis da jornada de transformação digital e inteligência artificial da Rede de Inovação Local (RIL).
+                </p>
+              </div>
+
+              <div className="print-signatures-grid">
+                <div className="print-signature-box">
+                  <div className="print-signature-line" />
+                  <strong>Thayâne Carvalho</strong>
+                  <span>Facilitadora do Programa & Gestão de Projetos</span>
+                  <small>Rede de Inovação Local (RIL Brasil)</small>
+                </div>
+                <div className="print-signature-box">
+                  <div className="print-signature-line" />
+                  <strong>{selectedMunicipality.focalPoint}</strong>
+                  <span>Articulador(a) Local do Programa</span>
+                  <small>Prefeitura Municipal de {selectedMunicipality.name} ({selectedMunicipality.state})</small>
+                </div>
+              </div>
+            </section>
+          </>
+        )}
+      </article>
     </div>
   )
 }

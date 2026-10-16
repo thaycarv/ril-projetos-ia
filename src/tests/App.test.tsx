@@ -107,7 +107,8 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
-  it('renders download/print report button below stage badge and triggers window.print', () => {
+  it('opens report modal on print button click and triggers window.print on option select', () => {
+    vi.useFakeTimers()
     const printSpy = vi.spyOn(window, 'print').mockImplementation(() => {})
     render(<App />)
 
@@ -118,8 +119,15 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     expect(printBtn).toBeInTheDocument()
 
     fireEvent.click(printBtn)
+    expect(screen.getByRole('heading', { name: /emissão de relatório do município/i })).toBeInTheDocument()
+
+    const simpleReportBtn = screen.getByRole('button', { name: /gerar relatório simples/i })
+    fireEvent.click(simpleReportBtn)
+
+    vi.runAllTimers()
     expect(printSpy).toHaveBeenCalled()
 
     printSpy.mockRestore()
+    vi.useRealTimers()
   })
 })
