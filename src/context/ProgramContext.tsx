@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useState, useMemo, type ReactNode
 import type { Municipality, MunicipalityStage, Deliverable, ProgramIndicators } from '../types'
 import { buildSeedMunicipalities } from '../data/municipalitiesSeed'
 
-const STORAGE_KEY = 'ril.program.v1'
+const STORAGE_KEY = 'ril.program.v2'
+const LEGACY_STORAGE_KEY = 'ril.program.v1'
 
 export type KpiFilter = 'all' | 'attention' | 'diagnostics' | 'completed'
 
@@ -32,10 +33,18 @@ const ProgramContext = createContext<ProgramContextValue | null>(null)
 export function ProgramProvider({ children }: { children: ReactNode }) {
   const [municipalities, setMunicipalities] = useState<Municipality[]>(() => {
     try {
+      localStorage.removeItem(LEGACY_STORAGE_KEY)
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
         const parsed = JSON.parse(saved)
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const isValid = parsed.every(m =>
+            Array.isArray(m.leaders) &&
+            m.leaders.length > 0 &&
+            m.leaders.every((l: any) => l && typeof l.email === 'string' && typeof l.phone === 'string')
+          )
+          if (isValid) return parsed
+        }
       }
     } catch {
       // Fallback to fresh seed

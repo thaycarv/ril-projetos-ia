@@ -48,7 +48,6 @@ export function MunicipalityDetailView() {
   const [leadersModalOpen, setLeadersModalOpen] = useState(false)
 
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const leadersPopoverRef = useRef<HTMLDivElement>(null)
 
   // Close popups on Escape key
   useEffect(() => {
@@ -64,23 +63,20 @@ export function MunicipalityDetailView() {
     }
   }, [])
 
-  // Close dropdown or leaders popup on outside click
+  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false)
       }
-      if (leadersPopoverRef.current && !leadersPopoverRef.current.contains(event.target as Node)) {
-        setLeadersModalOpen(false)
-      }
     }
-    if (dropdownOpen || leadersModalOpen) {
+    if (dropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside)
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [dropdownOpen, leadersModalOpen])
+  }, [dropdownOpen])
 
   if (!selectedMunicipality) {
     return <div className="page-empty">Nenhum município selecionado.</div>
@@ -454,93 +450,118 @@ export function MunicipalityDetailView() {
 
         {/* Rodapé da Ficha: Acesso sob demanda à Equipe de 10 Lideranças */}
         <section className="fiche-footer-actions">
-          <div className="leaders-trigger-wrapper" ref={leadersPopoverRef}>
-            <div className="leaders-trigger-bar">
-              <button
-                type="button"
-                className={`btn-leaders-popover ${leadersModalOpen ? 'is-active' : ''}`}
-                onClick={() => setLeadersModalOpen(!leadersModalOpen)}
-                aria-expanded={leadersModalOpen}
-                aria-controls="leaders-popover-panel"
-              >
-                <Users size={16} />
-                <span>Equipe de 10 Lideranças Municipais</span>
-                <span className="badge-count">10</span>
-              </button>
-              <span className="leaders-trigger-hint">
-                Clique para abrir os contatos, cargos e secretarias dos multiplicadores locais.
-              </span>
-            </div>
+          <div className="leaders-trigger-bar">
+            <button
+              type="button"
+              className={`btn-leaders-popover ${leadersModalOpen ? 'is-active' : ''}`}
+              onClick={() => setLeadersModalOpen(true)}
+              aria-expanded={leadersModalOpen}
+            >
+              <Users size={16} />
+              <span>Equipe de 10 Lideranças Municipais</span>
+              <span className="badge-count">10 multiplicadores</span>
+            </button>
+            <span className="leaders-trigger-hint">
+              Clique para abrir a janela com os contatos, cargos e secretarias dos 10 multiplicadores.
+            </span>
+          </div>
+        </section>
 
-            {/* Pop-up posicionado ao lado do botão no final da página */}
-            {leadersModalOpen && (
-              <div
-                id="leaders-popover-panel"
-                className="leaders-popover"
-                role="dialog"
-                aria-label={`Equipe de 10 Lideranças Municipais de ${selectedMunicipality.name}`}
-              >
-                <div className="leaders-popover__header">
-                  <div>
+        {/* Janela Balão Flutuante Modal das 10 Lideranças (não altera a página) */}
+        {leadersModalOpen && (
+          <div
+            className="leaders-modal-overlay"
+            onClick={() => setLeadersModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Equipe de 10 Lideranças Municipais de ${selectedMunicipality.name}`}
+          >
+            <div
+              className="leaders-modal-window"
+              onClick={e => e.stopPropagation()}
+            >
+              <header className="leaders-modal-header">
+                <div className="leaders-modal-header__text">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Users size={18} color="var(--primary)" />
                     <h4>Equipe de Lideranças Municipais</h4>
-                    <p>{selectedMunicipality.name} ({selectedMunicipality.state}) | 10 multiplicadores cadastrados</p>
                   </div>
-                  <button
-                    type="button"
-                    className="popover-close-btn"
-                    onClick={() => setLeadersModalOpen(false)}
-                    title="Fechar pop-up"
-                    aria-label="Fechar pop-up"
-                  >
-                    <X size={16} />
-                  </button>
+                  <p>{selectedMunicipality.name} ({selectedMunicipality.state}) | 10 multiplicadores cadastrados</p>
                 </div>
+                <button
+                  type="button"
+                  className="popover-close-btn"
+                  onClick={() => setLeadersModalOpen(false)}
+                  title="Fechar janela"
+                  aria-label="Fechar pop-up"
+                >
+                  <X size={18} />
+                </button>
+              </header>
 
-                <div className="leaders-popover__body">
-                  <div className="leaders-popover__list">
-                    {selectedMunicipality.leaders.map(leader => (
-                      <div className="leader-popover-card" key={leader.id}>
-                        <div className="leader-popover-card__top">
+              <div className="leaders-modal-body">
+                <div className="leaders-modal-grid">
+                  {selectedMunicipality.leaders?.map(leader => {
+                    const phoneDigits = (leader.phone || '').replace(/[^0-9]/g, '')
+                    const displayPhone = leader.phone || '(11) 98000-0000'
+                    const displayEmail = leader.email || `${leader.name.toLowerCase().replace(/\s+/g, '.')}@${selectedMunicipality.name.toLowerCase().replace(/[^a-z0-9]/g, '')}.${selectedMunicipality.state.toLowerCase()}.gov.br`
+
+                    return (
+                      <div className="leader-modal-card" key={leader.id}>
+                        <div className="leader-modal-card__header">
                           <div>
-                            <strong className="leader-popover-name">{leader.name}</strong>
-                            <p className="leader-popover-role">{leader.role}</p>
-                            <p className="leader-popover-dept">{leader.department}</p>
+                            <strong className="leader-modal-name">{leader.name}</strong>
+                            <p className="leader-modal-role">{leader.role}</p>
+                            <p className="leader-modal-dept">{leader.department}</p>
                           </div>
-                          <span className={`engagement-badge engagement-badge--${leader.engagement}`}>
+                          <span className={`engagement-badge engagement-badge--${leader.engagement || 'medio'}`}>
                             {leader.engagement === 'alto'
                               ? 'Engajamento Alto'
-                              : leader.engagement === 'medio'
-                              ? 'Engajamento Médio'
-                              : 'Engajamento Baixo'}
+                              : leader.engagement === 'baixo'
+                              ? 'Engajamento Baixo'
+                              : 'Engajamento Médio'}
                           </span>
                         </div>
 
-                        <div className="leader-popover-contacts">
+                        <div className="leader-modal-contacts">
                           <a
-                            href={`mailto:${leader.email}`}
+                            href={`mailto:${displayEmail}`}
                             className="leader-contact-link"
-                            title={`Enviar e-mail para ${leader.email}`}
+                            title={`Enviar e-mail para ${displayEmail}`}
                           >
                             <Mail size={13} />
-                            <span>{leader.email}</span>
+                            <span>{displayEmail}</span>
                           </a>
                           <a
-                            href={`tel:${leader.phone.replace(/[^0-9]/g, '')}`}
+                            href={phoneDigits ? `tel:${phoneDigits}` : '#'}
                             className="leader-contact-link"
-                            title={`Ligar ou enviar WhatsApp para ${leader.phone}`}
+                            title={`Ligar ou enviar WhatsApp para ${displayPhone}`}
                           >
                             <Phone size={13} />
-                            <span>{leader.phone}</span>
+                            <span>{displayPhone}</span>
                           </a>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    )
+                  })}
                 </div>
               </div>
-            )}
+
+              <footer className="leaders-modal-footer">
+                <span className="leaders-modal-footer__info">
+                  Multiplicadores capacitados para apoiar a implementação de IA no município.
+                </span>
+                <button
+                  type="button"
+                  className="btn-modal-close"
+                  onClick={() => setLeadersModalOpen(false)}
+                >
+                  Fechar janela
+                </button>
+              </footer>
+            </div>
           </div>
-        </section>
+        )}
       </main>
     </div>
   )
