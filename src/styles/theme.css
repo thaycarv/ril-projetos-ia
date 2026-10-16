@@ -734,19 +734,29 @@ a {
   margin-top: 4px;
 }
 
-.fiche-stage-selector {
+.fiche-stage-badge {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  background-color: var(--primary-light);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
 }
 
-.stage-select {
-  padding: 8px 12px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--line-strong);
-  background-color: var(--surface);
-  font-size: 0.78rem;
+.fiche-stage-badge__label {
+  display: block;
+  font-size: 0.65rem;
   font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fiche-stage-badge__value {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 800;
   color: var(--ink);
 }
 
@@ -816,38 +826,251 @@ a {
   border-radius: 4px;
 }
 
-/* Equipe de 10 Líderes */
-.leaders-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+/* Rodapé da Ficha e Pop-up de Lideranças */
+.fiche-footer-actions {
+  position: relative;
+  margin-top: 4px;
 }
 
-.leader-item {
-  background-color: var(--bg);
-  padding: 10px 12px;
+.leaders-trigger-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.leaders-trigger-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background-color: var(--surface);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+}
+
+.btn-leaders-popover {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, var(--ril-teal-600), var(--primary));
+  color: #ffffff;
+  border: none;
   border-radius: var(--radius-md);
-  border: 1px solid var(--line);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-leaders-popover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+  filter: brightness(1.05);
+}
+
+.btn-leaders-popover.is-active {
+  background: var(--ink);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.btn-leaders-popover .badge-count {
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.leaders-trigger-hint {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+/* Pop-up de Lideranças */
+.leaders-popover {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: min(720px, 95vw);
+  max-height: 520px;
+  background-color: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.18), 0 6px 14px -2px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  z-index: 100;
+  animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
-.leader-name {
-  font-size: 0.8rem;
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.leaders-popover__header {
+  padding: 16px 20px;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.leaders-popover__header h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+
+.leaders-popover__header p {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 2px 0 0 0;
+}
+
+.popover-close-btn {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.popover-close-btn:hover {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger-border);
+}
+
+.leaders-popover__body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  max-height: 420px;
+}
+
+.leaders-popover__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 680px) {
+  .leaders-popover__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leader-popover-card {
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-color 0.15s;
+}
+
+.leader-popover-card:hover {
+  border-color: var(--primary);
+}
+
+.leader-popover-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.leader-popover-name {
+  display: block;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--ink);
 }
 
-.leader-role {
-  font-size: 0.68rem;
-  color: var(--muted);
+.leader-popover-role {
+  font-size: 0.72rem;
+  color: var(--ink-secondary);
+  margin-top: 2px;
+  font-weight: 500;
 }
 
-.leader-dept {
-  font-size: 0.62rem;
+.leader-popover-dept {
+  font-size: 0.65rem;
   color: var(--primary);
   font-weight: 600;
+  margin-top: 1px;
+}
+
+.engagement-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.engagement-badge--alto {
+  background-color: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success-border);
+}
+
+.engagement-badge--medio {
+  background-color: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid var(--warning-border);
+}
+
+.engagement-badge--baixo {
+  background-color: var(--bg);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+
+.leader-popover-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+
+.leader-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.leader-contact-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 /* Checklist de Entregas */

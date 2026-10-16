@@ -7,11 +7,14 @@ import {
   CheckSquare,
   AlertTriangle,
   Mail,
+  Phone,
   Search,
   CheckCircle2,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  X,
+  Compass,
 } from 'lucide-react'
 import { useProgram } from '../context/ProgramContext'
 import type { MunicipalityStage, Deliverable } from '../types'
@@ -35,7 +38,6 @@ export function MunicipalityDetailView() {
     municipalities,
     selectedMunicipality,
     selectMunicipality,
-    updateStage,
     updateDeliverableStatus,
     toggleAttention,
   } = useProgram()
@@ -43,22 +45,42 @@ export function MunicipalityDetailView() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [dropdownSearch, setDropdownSearch] = useState('')
   const [onlyAttentionInDropdown, setOnlyAttentionInDropdown] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [leadersModalOpen, setLeadersModalOpen] = useState(false)
 
-  // Close dropdown on outside click
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const leadersPopoverRef = useRef<HTMLDivElement>(null)
+
+  // Close popups on Escape key
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setDropdownOpen(false)
+        setLeadersModalOpen(false)
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
+  // Close dropdown or leaders popup on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false)
       }
+      if (leadersPopoverRef.current && !leadersPopoverRef.current.contains(event.target as Node)) {
+        setLeadersModalOpen(false)
+      }
     }
-    if (dropdownOpen) {
+    if (dropdownOpen || leadersModalOpen) {
       document.addEventListener('mousedown', handleClickOutside)
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [dropdownOpen])
+  }, [dropdownOpen, leadersModalOpen])
 
   if (!selectedMunicipality) {
     return <div className="page-empty">Nenhum município selecionado.</div>
@@ -217,7 +239,7 @@ export function MunicipalityDetailView() {
               <span className="municipality-card__state">{selectedMunicipality.population.toLocaleString('pt-BR')} hab.</span>
             </div>
             <p>
-              Patrocinador: <strong>{selectedMunicipality.mayorOrSponsor}</strong> | Ponto Focal: <strong>{selectedMunicipality.focalPoint}</strong>
+              Liderança institucional: <strong>{selectedMunicipality.mayorOrSponsor}</strong> | Articulador(a) local: <strong>{selectedMunicipality.focalPoint}</strong>
             </p>
             <p style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '4px' }}>
               <Mail size={13} color="var(--muted)" />
@@ -225,22 +247,12 @@ export function MunicipalityDetailView() {
             </p>
           </div>
 
-          <div className="fiche-stage-selector">
-            <label htmlFor="stage-select" style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--muted)' }}>
-              Etapa RIL:
-            </label>
-            <select
-              id="stage-select"
-              className="stage-select"
-              value={selectedMunicipality.stage}
-              onChange={e => updateStage(selectedMunicipality.id, e.target.value as MunicipalityStage)}
-            >
-              {Object.entries(STAGE_LABELS).map(([key, label]) => (
-                <option key={key} value={key}>
-                  {label}
-                </option>
-              ))}
-            </select>
+          <div className="fiche-stage-badge">
+            <Compass size={16} color="var(--primary)" />
+            <div>
+              <span className="fiche-stage-badge__label">Etapa no Programa</span>
+              <strong className="fiche-stage-badge__value">{STAGE_LABELS[selectedMunicipality.stage]}</strong>
+            </div>
           </div>
         </header>
 
@@ -396,25 +408,7 @@ export function MunicipalityDetailView() {
           </section>
         </div>
 
-        {/* Seção 3: Equipe de 10 Lideranças Municipais */}
-        <section className="fiche-section">
-          <h3 className="fiche-section__title">
-            <Users size={18} />
-            <span>Equipe de 10 Lideranças Municipais (Multiplicadores)</span>
-          </h3>
-
-          <div className="leaders-grid">
-            {selectedMunicipality.leaders.map(leader => (
-              <div className="leader-item" key={leader.id}>
-                <span className="leader-name">{leader.name}</span>
-                <span className="leader-role">{leader.role}</span>
-                <span className="leader-dept">{leader.department}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Seção 4: Entregas do Programa RIL */}
+        {/* Seção 3: Entregas do Programa RIL */}
         <section className="fiche-section">
           <h3 className="fiche-section__title">
             <CheckSquare size={18} />
@@ -455,6 +449,96 @@ export function MunicipalityDetailView() {
                 </button>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Rodapé da Ficha: Acesso sob demanda à Equipe de 10 Lideranças */}
+        <section className="fiche-footer-actions">
+          <div className="leaders-trigger-wrapper" ref={leadersPopoverRef}>
+            <div className="leaders-trigger-bar">
+              <button
+                type="button"
+                className={`btn-leaders-popover ${leadersModalOpen ? 'is-active' : ''}`}
+                onClick={() => setLeadersModalOpen(!leadersModalOpen)}
+                aria-expanded={leadersModalOpen}
+                aria-controls="leaders-popover-panel"
+              >
+                <Users size={16} />
+                <span>Equipe de 10 Lideranças Municipais</span>
+                <span className="badge-count">10</span>
+              </button>
+              <span className="leaders-trigger-hint">
+                Clique para abrir os contatos, cargos e secretarias dos multiplicadores locais.
+              </span>
+            </div>
+
+            {/* Pop-up posicionado ao lado do botão no final da página */}
+            {leadersModalOpen && (
+              <div
+                id="leaders-popover-panel"
+                className="leaders-popover"
+                role="dialog"
+                aria-label={`Equipe de 10 Lideranças Municipais de ${selectedMunicipality.name}`}
+              >
+                <div className="leaders-popover__header">
+                  <div>
+                    <h4>Equipe de Lideranças Municipais</h4>
+                    <p>{selectedMunicipality.name} ({selectedMunicipality.state}) | 10 multiplicadores cadastrados</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="popover-close-btn"
+                    onClick={() => setLeadersModalOpen(false)}
+                    title="Fechar pop-up"
+                    aria-label="Fechar pop-up"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+
+                <div className="leaders-popover__body">
+                  <div className="leaders-popover__list">
+                    {selectedMunicipality.leaders.map(leader => (
+                      <div className="leader-popover-card" key={leader.id}>
+                        <div className="leader-popover-card__top">
+                          <div>
+                            <strong className="leader-popover-name">{leader.name}</strong>
+                            <p className="leader-popover-role">{leader.role}</p>
+                            <p className="leader-popover-dept">{leader.department}</p>
+                          </div>
+                          <span className={`engagement-badge engagement-badge--${leader.engagement}`}>
+                            {leader.engagement === 'alto'
+                              ? 'Engajamento Alto'
+                              : leader.engagement === 'medio'
+                              ? 'Engajamento Médio'
+                              : 'Engajamento Baixo'}
+                          </span>
+                        </div>
+
+                        <div className="leader-popover-contacts">
+                          <a
+                            href={`mailto:${leader.email}`}
+                            className="leader-contact-link"
+                            title={`Enviar e-mail para ${leader.email}`}
+                          >
+                            <Mail size={13} />
+                            <span>{leader.email}</span>
+                          </a>
+                          <a
+                            href={`tel:${leader.phone.replace(/[^0-9]/g, '')}`}
+                            className="leader-contact-link"
+                            title={`Ligar ou enviar WhatsApp para ${leader.phone}`}
+                          >
+                            <Phone size={13} />
+                            <span>{leader.phone}</span>
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </main>

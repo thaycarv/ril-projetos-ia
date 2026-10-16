@@ -59,9 +59,9 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
   it('allows navigating and selecting municipalities via suspended dropdown in detail view', () => {
     render(<App />)
 
-    // Open detail view via top toggle
-    const munNavBtn = screen.getByRole('button', { name: /ficha one-page/i })
-    fireEvent.click(munNavBtn)
+    // Open detail view via top toggle or sidebar
+    const munNavBtns = screen.getAllByRole('button', { name: /municípios/i })
+    fireEvent.click(munNavBtns[0])
 
     // Check trigger button is present
     const triggerBtn = screen.getByRole('button', { name: /sobral/i })
@@ -76,5 +76,34 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     fireEvent.click(nextBtn)
 
     expect(screen.getAllByText(/pelotas/i).length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('opens and closes the 10 leaders pop-up showing contacts', () => {
+    render(<App />)
+
+    // Switch to Sobral
+    const sobralCard = screen.getByText('Sobral')
+    fireEvent.click(sobralCard)
+
+    // Leaders button in footer
+    const openLeadersBtn = screen.getByRole('button', { name: /equipe de 10 lideranças municipais/i })
+    expect(openLeadersBtn).toBeInTheDocument()
+
+    // Pop-up not visible initially
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+    // Open pop-up
+    fireEvent.click(openLeadersBtn)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    expect(screen.getByText(/10 multiplicadores cadastrados/i)).toBeInTheDocument()
+
+    // Check generated emails and phones (1 focal point + 10 leaders = 11 emails)
+    expect(screen.getAllByText(/@sobral\.ce\.gov\.br/i).length).toBe(11)
+    expect(screen.getAllByText(/\(85\) 9/i).length).toBeGreaterThanOrEqual(10)
+
+    // Close via close button (X)
+    const closeBtn = screen.getByRole('button', { name: /fechar pop-up/i })
+    fireEvent.click(closeBtn)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 })

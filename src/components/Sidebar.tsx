@@ -29,7 +29,7 @@ export function Sidebar({ currentView, onViewChange, collapsed, onToggleCollapse
             {collapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
           </button>
         </div>
-        {!collapsed && <p className="brand-sub">Programa Governos na Era da IA</p>}
+        {!collapsed && <p className="brand-sub">Gestão e facilitação municipal.</p>}
       </div>
 
       <nav className="sidebar__nav" aria-label="Navegação do programa">
@@ -58,7 +58,7 @@ export function Sidebar({ currentView, onViewChange, collapsed, onToggleCollapse
         {!collapsed && (
           <div className="facilitator-card">
             <small>Facilitador(a) RIL</small>
-            <strong>Carteira: {indicators.totalMunicipalities} Municípios</strong>
+            <strong>Acompanhamento: {indicators.totalMunicipalities} municípios</strong>
           </div>
         )}
 

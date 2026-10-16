@@ -42,17 +42,35 @@ const standardRoles = [
   { role: 'Multiplicador(a) Pedagógico', dept: 'Escola de Governo / RH' },
 ]
 
-function generateLeaders(municipalityName: string): Leader[] {
+const stateDddMap: Record<string, string> = {
+  AC: '68', AL: '82', AM: '92', AP: '96', BA: '71', CE: '85', DF: '61', ES: '27',
+  GO: '62', MA: '98', MG: '31', MS: '67', MT: '65', PA: '91', PB: '83', PE: '81',
+  PI: '86', PR: '41', RJ: '21', RN: '84', RO: '69', RR: '95', RS: '51', SC: '48',
+  SE: '79', SP: '11', TO: '63',
+}
+
+function generateLeaders(municipalityName: string, state: string): Leader[] {
   const firstNames = ['Ana', 'Carlos', 'Beatriz', 'Marcos', 'Juliana', 'Rodrigo', 'Camila', 'Eduardo', 'Fernanda', 'Lucas']
   const lastNames = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Pereira', 'Lima', 'Carvalho', 'Ribeiro', 'Almeida', 'Costa']
+  const cleanCity = municipalityName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '')
+  const ddd = stateDddMap[state] || '11'
   
-  return standardRoles.map((item, idx) => ({
-    id: `leader-${idx + 1}`,
-    name: `${firstNames[idx]} ${lastNames[(idx + municipalityName.length) % lastNames.length]}`,
-    role: item.role,
-    department: item.dept,
-    engagement: idx < 6 ? 'alto' : idx < 9 ? 'medio' : 'baixo',
-  }))
+  return standardRoles.map((item, idx) => {
+    const firstName = firstNames[idx]
+    const lastName = lastNames[(idx + municipalityName.length) % lastNames.length]
+    const emailPrefix = `${firstName.toLowerCase()}.${lastName.toLowerCase()}`
+    const phoneSuffix = 1000 + (idx * 73 + municipalityName.length * 19) % 8999
+
+    return {
+      id: `leader-${idx + 1}`,
+      name: `${firstName} ${lastName}`,
+      role: item.role,
+      department: item.dept,
+      engagement: idx < 6 ? 'alto' : idx < 9 ? 'medio' : 'baixo',
+      email: `${emailPrefix}@${cleanCity}.${state.toLowerCase()}.gov.br`,
+      phone: `(${ddd}) 9${8100 + ((idx * 31) % 1800)}-${phoneSuffix.toString().padStart(4, '0')}`,
+    }
+  })
 }
 
 function generateDeliverables(currentStage: MunicipalityStage): Deliverable[] {
@@ -404,7 +422,7 @@ export function buildSeedMunicipalities(): Municipality[] {
         practicalApplication: item.scores[3],
       },
       track: item.track,
-      leaders: generateLeaders(item.name),
+      leaders: generateLeaders(item.name, item.state),
       biweeklyMeeting: {
         lastMeetingDate: new Date(Date.now() - item.biweekly.lastMeetingDaysAgo * 86400000).toISOString(),
         nextMeetingDate: new Date(Date.now() + item.biweekly.nextMeetingDaysAhead * 86400000).toISOString(),

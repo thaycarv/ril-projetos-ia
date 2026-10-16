@@ -113,7 +113,7 @@ export function KanbanView({ onOpenDetail }: KanbanViewProps) {
                       <div className="municipality-card__header">
                         <div>
                           <strong className="municipality-card__name">{municipality.name}</strong>
-                          <p className="municipality-card__track">Ponto focal: {municipality.focalPoint}</p>
+                          <p className="municipality-card__track">Articulador(a): {municipality.focalPoint}</p>
                         </div>
                         <span className="municipality-card__state">{municipality.state}</span>
                       </div>

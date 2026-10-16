@@ -18,6 +18,8 @@ export interface Leader {
   role: string
   department: string
   engagement: 'alto' | 'medio' | 'baixo'
+  email: string
+  phone: string
 }
 
 export interface BiweeklyMeeting {

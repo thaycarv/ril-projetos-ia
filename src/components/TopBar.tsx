@@ -21,7 +21,7 @@ export function TopBar({ currentView, onViewChange }: TopBarProps) {
             onClick={() => onViewChange('kanban')}
           >
             <Columns3 size={15} />
-            <span>Kanban da Carteira</span>
+            <span>Visão Geral</span>
           </button>
           <button
             type="button"
@@ -29,7 +29,7 @@ export function TopBar({ currentView, onViewChange }: TopBarProps) {
             onClick={() => onViewChange('detail')}
           >
             <FileText size={15} />
-            <span>Ficha One-Page</span>
+            <span>Municípios</span>
           </button>
         </div>
       </div>
