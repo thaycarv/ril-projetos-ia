@@ -875,7 +875,7 @@ export function MunicipalityDetailView() {
             {/* Bloco 4: Cronograma de Entregas */}
             <section className="print-dossier__section print-break-before">
               <h2 className="print-dossier__section-title">IV. CRONOGRAMA & STATUS DETALHADO DAS ENTREGAS RIL</h2>
-              <table className="print-dossier__table">
+              <table className="print-dossier__table print-dossier__table--deliverables">
                 <thead>
                   <tr>
                     <th style={{ width: '25%' }}>Entregável Oficial</th>
@@ -906,7 +906,7 @@ export function MunicipalityDetailView() {
             {/* Bloco 5: Equipe de Multiplicadores Locais */}
             <section className="print-dossier__section">
               <h2 className="print-dossier__section-title">V. QUADRO DE MULTIPLICADORES LOCAIS</h2>
-              <table className="print-dossier__table">
+              <table className="print-dossier__table print-dossier__table--leaders">
                 <thead>
                   <tr>
                     <th style={{ width: '22%' }}>Nome</th>
@@ -933,7 +933,7 @@ export function MunicipalityDetailView() {
             {/* Bloco 6: Matriz de Riscos & Diretrizes de Mitigação (Detalhamento Extra) */}
             <section className="print-dossier__section">
               <h2 className="print-dossier__section-title">VI. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
-              <table className="print-dossier__table">
+              <table className="print-dossier__table print-dossier__table--risks">
                 <thead>
                   <tr>
                     <th style={{ width: '25%' }}>Fator de Risco Mapeado</th>

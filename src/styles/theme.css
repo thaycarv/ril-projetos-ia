@@ -1671,7 +1671,7 @@ a {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 10mm 12mm;
+    margin: 8mm 10mm;
   }
 
   body {
@@ -1714,96 +1714,90 @@ a {
     display: none !important;
   }
 
-  /* Exibe exclusivamente o dossiê formal de gestão */
+  /* Exibe exclusivamente o dossiê formal de gestão com escala compacta e legível */
   .print-dossier {
     display: block !important;
     visibility: visible !important;
     width: 100% !important;
     color: #0f172a !important;
     background: #ffffff !important;
-    font-size: 8.5pt !important;
-    line-height: 1.4 !important;
+    font-size: 7.8pt !important;
+    line-height: 1.35 !important;
   }
 
   .print-dossier__header {
-    border-bottom: 2pt solid #2d4533;
-    padding-bottom: 8pt;
-    margin-bottom: 12pt;
+    border-bottom: 1.5pt solid #2d4533;
+    padding-bottom: 4pt;
+    margin-bottom: 6pt;
   }
 
   .print-dossier__brand {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4pt;
+    margin-bottom: 2pt;
   }
 
   .print-dossier__badge {
-    font-size: 9pt;
+    font-size: 8.5pt;
     font-weight: 800;
     color: #2d4533;
     letter-spacing: 0.05em;
   }
 
-  .print-dossier__subbadge {
-    font-size: 7.5pt;
-    font-weight: 700;
-    color: #64748b;
-    text-transform: uppercase;
-  }
-
   .print-dossier__title {
-    font-size: 13pt;
+    font-size: 11pt;
     font-weight: 800;
     color: #0f172a;
-    margin: 4pt 0 6pt 0;
+    margin: 2pt 0 4pt 0;
     letter-spacing: -0.01em;
   }
 
   .print-dossier__meta-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 16pt;
-    font-size: 7.5pt;
+    gap: 12pt;
+    font-size: 7pt;
     color: #334155;
     background-color: #f8fafc;
     border: 0.5pt solid #cbd5e1;
-    padding: 4pt 8pt;
-    border-radius: 3pt;
+    padding: 3pt 6pt;
+    border-radius: 2pt;
   }
 
   .print-dossier__section {
-    margin-bottom: 10pt;
+    margin-bottom: 6pt;
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .print-dossier__section-title {
-    font-size: 9.5pt;
+    font-size: 8.5pt;
     font-weight: 800;
     color: #2d4533;
-    border-bottom: 1pt solid #cbd5e1;
-    padding-bottom: 3pt;
-    margin-bottom: 6pt;
+    border-bottom: 0.75pt solid #cbd5e1;
+    padding-bottom: 2pt;
+    margin-bottom: 3pt;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
   }
 
   .print-dossier__subtitle {
-    font-size: 8.5pt;
+    font-size: 7.8pt;
     font-weight: 700;
     color: #0f172a;
-    margin: 6pt 0 4pt 0;
+    margin: 4pt 0 3pt 0;
   }
 
   .print-dossier__text-box {
-    font-size: 8pt;
+    font-size: 7.2pt;
     color: #334155;
     background-color: #f8fafc;
     border: 0.5pt solid #e2e8f0;
     border-left: 2pt solid #3d5c45;
-    padding: 6pt 8pt;
+    padding: 4pt 6pt;
     border-radius: 2pt;
-    line-height: 1.45;
+    line-height: 1.35;
   }
 
   .print-dossier__text-box p {
@@ -1813,14 +1807,14 @@ a {
   .print-dossier__table {
     width: 100% !important;
     border-collapse: collapse !important;
-    font-size: 7.8pt !important;
-    margin-top: 4pt;
+    font-size: 7.2pt !important;
+    margin-top: 2pt;
   }
 
   .print-dossier__table th,
   .print-dossier__table td {
     border: 0.5pt solid #cbd5e1 !important;
-    padding: 4.5pt 6pt !important;
+    padding: 3pt 4.5pt !important;
     text-align: left;
     vertical-align: middle;
   }
@@ -1831,20 +1825,45 @@ a {
     font-weight: 700;
   }
 
+  /* Tabela de 10 Multiplicadores rigorosamente otimizada para a página 2 */
+  .print-dossier__table--leaders th,
+  .print-dossier__table--leaders td {
+    padding: 2pt 4pt !important;
+    font-size: 6.8pt !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Tabela de Entregas */
+  .print-dossier__table--deliverables th,
+  .print-dossier__table--deliverables td {
+    padding: 2.5pt 4.5pt !important;
+    font-size: 7pt !important;
+  }
+
+  /* Tabela de Riscos */
+  .print-dossier__table--risks th,
+  .print-dossier__table--risks td {
+    padding: 2.5pt 4.5pt !important;
+    font-size: 6.8pt !important;
+    line-height: 1.25 !important;
+  }
+
   .print-break-before {
     break-before: page;
+    page-break-before: always;
   }
 
   .print-break-inside-avoid {
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .print-signatures-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30pt;
-    margin-top: 24pt;
-    padding-top: 10pt;
+    gap: 24pt;
+    margin-top: 8pt;
+    padding-top: 4pt;
   }
 
   .print-signature-box {
@@ -1852,18 +1871,18 @@ a {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-size: 7.5pt;
+    font-size: 7pt;
     color: #334155;
   }
 
   .print-signature-line {
-    width: 80%;
-    border-top: 1pt solid #0f172a;
-    margin-bottom: 5pt;
+    width: 75%;
+    border-top: 0.75pt solid #0f172a;
+    margin-bottom: 3pt;
   }
 
   .print-signature-box strong {
-    font-size: 8pt;
+    font-size: 7.5pt;
     color: #0f172a;
   }
 
@@ -1873,7 +1892,7 @@ a {
 
   .print-signature-box small {
     color: #64748b;
-    font-size: 7pt;
+    font-size: 6.5pt;
   }
 }
 
