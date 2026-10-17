@@ -948,36 +948,9 @@ export function MunicipalityDetailView() {
               </table>
             </section>
 
-            {/* Bloco 6 (Início da Página 2): Equipe de Multiplicadores Locais */}
-            <section className="print-dossier__section print-break-before">
-              <h2 className="print-dossier__section-title">VI. QUADRO DE MULTIPLICADORES LOCAIS</h2>
-              <table className="print-dossier__table print-dossier__table--leaders">
-                <thead>
-                  <tr>
-                    <th style={{ width: '22%' }}>Nome</th>
-                    <th style={{ width: '18%' }}>Cargo</th>
-                    <th style={{ width: '22%' }}>Secretaria / Órgão</th>
-                    <th style={{ width: '22%' }}>E-mail Institucional</th>
-                    <th style={{ width: '16%' }}>Telefone</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedMunicipality.leaders?.map(leader => (
-                    <tr key={leader.id}>
-                      <td><strong>{leader.name}</strong></td>
-                      <td>{leader.role}</td>
-                      <td>{leader.department}</td>
-                      <td>{leader.email}</td>
-                      <td>{leader.phone}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-
-            {/* Bloco 7: Matriz de Riscos & Diretrizes de Mitigação */}
+            {/* Bloco 6: Matriz de Riscos & Diretrizes de Mitigação na Página 1 */}
             <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">VII. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
+              <h2 className="print-dossier__section-title">VI. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
               <table className="print-dossier__table print-dossier__table--risks">
                 <thead>
                   <tr>
@@ -1002,6 +975,33 @@ export function MunicipalityDetailView() {
                     <td style={{ textAlign: 'center' }}>Média</td>
                     <td>Estruturação de encontros quinzenais ágeis de 45 minutos e entrega de modelos pré-configurados de uso imediato na rotina administrativa.</td>
                   </tr>
+                </tbody>
+              </table>
+            </section>
+
+            {/* Bloco 7 (Início da Página 2): Equipe de Multiplicadores Locais */}
+            <section className="print-dossier__section print-break-before">
+              <h2 className="print-dossier__section-title">VII. QUADRO DE MULTIPLICADORES LOCAIS</h2>
+              <table className="print-dossier__table print-dossier__table--leaders">
+                <thead>
+                  <tr>
+                    <th style={{ width: '22%' }}>Nome</th>
+                    <th style={{ width: '18%' }}>Cargo</th>
+                    <th style={{ width: '22%' }}>Secretaria / Órgão</th>
+                    <th style={{ width: '22%' }}>E-mail Institucional</th>
+                    <th style={{ width: '16%' }}>Telefone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedMunicipality.leaders?.map(leader => (
+                    <tr key={leader.id}>
+                      <td><strong>{leader.name}</strong></td>
+                      <td>{leader.role}</td>
+                      <td>{leader.department}</td>
+                      <td>{leader.email}</td>
+                      <td>{leader.phone}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </section>
