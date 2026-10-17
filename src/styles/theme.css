@@ -1762,6 +1762,36 @@ a {
     margin-top: 0 !important;
   }
 
+  .print-portfolio-table-half th,
+  .print-portfolio-table-half td {
+    padding: 1.6pt 2.6pt !important;
+    font-size: 5.9pt !important;
+    line-height: 1.18 !important;
+  }
+
+  /* Ajustes executivos para preenchimento nobre da Pagina 1 e Pagina 2 */
+  .print-portfolio-dossier--analitico .print-dossier__section {
+    margin-bottom: 4pt !important;
+  }
+
+  .print-portfolio-dossier--analitico .print-dossier__section-title {
+    font-size: 7.6pt !important;
+    padding-bottom: 1.5pt !important;
+    margin-bottom: 2pt !important;
+  }
+
+  .print-portfolio-dossier--analitico .print-dossier__table th,
+  .print-portfolio-dossier--analitico .print-dossier__table td {
+    padding: 2.2pt 3.4pt !important;
+    font-size: 6.6pt !important;
+  }
+
+  .print-portfolio-dossier--analitico .print-dossier__text-box {
+    padding: 2.8pt 5pt !important;
+    font-size: 6.6pt !important;
+    line-height: 1.25 !important;
+  }
+
   .print-dossier__header {
     border-bottom: 1.5pt solid #2d4533;
     padding-bottom: 3pt;
