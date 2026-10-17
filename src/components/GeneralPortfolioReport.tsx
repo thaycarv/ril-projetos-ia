@@ -17,6 +17,20 @@ const STAGE_LABELS: Record<MunicipalityStage, string> = {
   concluido: '5. Ciclo Concluído',
 }
 
+const STAGE_SHORT_LABELS: Record<MunicipalityStage, string> = {
+  alinhamento: '1. Entrada',
+  diagnostico: '2. Diagnóstico',
+  formacao: '3. Formação',
+  multiplicacao: '4. Multiplicação',
+  concluido: '5. Concluído',
+}
+
+const TRACK_SHORT_LABELS: Record<string, string> = {
+  uso_estrategico: 'Uso Estratégico',
+  otimizacao_servicos: 'Otimização Serviços',
+  analise_dados: 'Governança de Dados',
+}
+
 export function GeneralPortfolioReport() {
   const { municipalities, indicators } = useProgram()
   const [modalOpen, setModalOpen] = useState(false)
@@ -385,7 +399,7 @@ export function GeneralPortfolioReport() {
             <tbody>
               {municipalities
                 .filter(m => m.attention?.hasAttention)
-                .slice(0, reportType === 'sintetico' ? 5 : 4)
+                .slice(0, reportType === 'sintetico' ? 5 : 6)
                 .map(m => (
                   <tr key={m.id}>
                     <td><strong>{m.name} ({m.state})</strong></td>
@@ -409,6 +423,51 @@ export function GeneralPortfolioReport() {
             </tbody>
           </table>
         </section>
+
+        {/* Bloco 5 (na Página 1): Matriz de Riscos da Carteira (Exclusivo do Analítico para preenchimento nobre da Página 1) */}
+        {reportType === 'analitico' && (
+          <section className="print-dossier__section">
+            <h2 className="print-dossier__section-title">V. MATRIZ DE RISCOS DA CARTEIRA & DIRETRIZES DE MITIGAÇÃO</h2>
+            <table className="print-dossier__table print-dossier__table--risks">
+              <thead>
+                <tr>
+                  <th style={{ width: '24%' }}>Fator de Risco Mapeado</th>
+                  <th style={{ width: '12%', textAlign: 'center' }}>Severidade</th>
+                  <th style={{ width: '64%' }}>Estratégia Nacional de Mitigação & Salvaguarda</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Assimetria de Capacidade Técnica</strong></td>
+                  <td style={{ textAlign: 'center', color: '#b45309', fontWeight: 700 }}>Alta</td>
+                  <td>Nivelamento através de 3 trilhas adaptadas ao porte municipal e mentorias direcionadas com especialistas da coordenação RIL.</td>
+                </tr>
+                <tr>
+                  <td><strong>Descontinuidade e Transição Política</strong></td>
+                  <td style={{ textAlign: 'center', color: '#92400e', fontWeight: 700 }}>Média</td>
+                  <td>Institucionalização da comissão dos 10 multiplicadores locais com portaria municipal e repositório digital compartilhado em nuvem.</td>
+                </tr>
+                <tr>
+                  <td><strong>Conformidade e Sigilo Governamental</strong></td>
+                  <td style={{ textAlign: 'center', color: '#b45309', fontWeight: 700 }}>Alta</td>
+                  <td>Protocolo estrito de segurança vedando dados tributários ou de saúde descaracterizados em ambientes abertos de LLM.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        )}
+
+        {/* Bloco 6 (na Página 1): Parecer Analítico da Facilitação Nacional (Finaliza a Página 1 com Densidade Executiva) */}
+        {reportType === 'analitico' && (
+          <section className="print-dossier__section">
+            <h2 className="print-dossier__section-title">VI. PARECER ANALÍTICO DA FACILITAÇÃO NACIONAL & DIRETRIZES OPERACIONAIS</h2>
+            <div className="print-dossier__text-box">
+              <p>
+                <strong>Diagnóstico Operacional Integrado:</strong> A carteira nacional de 40 municípios do Programa Governos na Era da IA demonstra ritmo acelerado de maturação, com {Math.round(((stageCounts.formacao + stageCounts.multiplicacao + stageCounts.concluido) / totalMun) * 100)}% dos municípios já integrados às oficinas de formação ou aos ciclos práticos de multiplicação interna. A taxa média de assiduidade de {avgAttendance}% nos encontros quinzenais confirma o engajamento contínuo dos pontos focais municipais. Como diretriz prioritária para o próximo ciclo, recomenda-se a intensificação das mentorias técnicas na dimensão de Capacidade Técnica ({avgScores.tec}/10) e a consolidação dos repositórios compartilhados para mitigar riscos de descontinuidade administrativa.
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* Seção Exclusiva da Página 1 para o Relatório Sintético: Parecer Geral e Assinatura */}
         {reportType === 'sintetico' && (
@@ -440,18 +499,19 @@ export function GeneralPortfolioReport() {
         {/* Seções Adicionais Exclusivas do Relatório Analítico na Página 2 */}
         {reportType === 'analitico' && (
           <>
-            {/* Bloco 5 (Início da Página 2): Quadro Analítico dos 40 Municípios em 2 Colunas */}
+            {/* Bloco 7 (Início da Página 2): Quadro Analítico dos 40 Municípios em 2 Colunas */}
             <section className="print-dossier__section print-break-before">
-              <h2 className="print-dossier__section-title">V. QUADRO ANALÍTICO CONSOLIDADO DOS 40 MUNICÍPIOS PARTICIPANTES</h2>
+              <h2 className="print-dossier__section-title">VII. QUADRO ANALÍTICO CONSOLIDADO DOS 40 MUNICÍPIOS PARTICIPANTES</h2>
               <div className="print-portfolio-grid-2col">
                 {/* Coluna Esquerda: Primeiros 20 Municipios */}
                 <table className="print-dossier__table print-portfolio-table-half">
                   <thead>
                     <tr>
-                      <th style={{ width: '38%' }}>Município (UF)</th>
-                      <th style={{ width: '32%' }}>Etapa no Programa</th>
-                      <th style={{ width: '15%', textAlign: 'center' }}>Presença</th>
-                      <th style={{ width: '15%', textAlign: 'center' }}>Status</th>
+                      <th style={{ width: '32%' }}>Município (UF)</th>
+                      <th style={{ width: '26%' }}>Trilha de IA</th>
+                      <th style={{ width: '24%' }}>Etapa RIL</th>
+                      <th style={{ width: '9%', textAlign: 'center' }}>Pres.</th>
+                      <th style={{ width: '9%', textAlign: 'center' }}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -460,15 +520,16 @@ export function GeneralPortfolioReport() {
                         <td>
                           <strong>{m.name}</strong> <span style={{ color: '#64748b' }}>({m.state})</span>
                         </td>
-                        <td style={{ fontSize: '6pt' }}>{STAGE_LABELS[m.stage]}</td>
-                        <td style={{ textAlign: 'center', fontSize: '6.2pt' }}>
+                        <td style={{ fontSize: '5.8pt' }}>{TRACK_SHORT_LABELS[m.track] || 'Uso Estratégico'}</td>
+                        <td style={{ fontSize: '5.8pt' }}>{STAGE_SHORT_LABELS[m.stage] || m.stage}</td>
+                        <td style={{ textAlign: 'center', fontSize: '6pt' }}>
                           {m.biweeklyMeeting?.attendanceRate}%
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           <span style={{
                             color: m.attention?.hasAttention ? '#b45309' : '#166534',
                             fontWeight: 700,
-                            fontSize: '6pt'
+                            fontSize: '5.8pt'
                           }}>
                             {m.attention?.hasAttention ? 'Atenção' : 'Regular'}
                           </span>
@@ -482,10 +543,11 @@ export function GeneralPortfolioReport() {
                 <table className="print-dossier__table print-portfolio-table-half">
                   <thead>
                     <tr>
-                      <th style={{ width: '38%' }}>Município (UF)</th>
-                      <th style={{ width: '32%' }}>Etapa no Programa</th>
-                      <th style={{ width: '15%', textAlign: 'center' }}>Presença</th>
-                      <th style={{ width: '15%', textAlign: 'center' }}>Status</th>
+                      <th style={{ width: '32%' }}>Município (UF)</th>
+                      <th style={{ width: '26%' }}>Trilha de IA</th>
+                      <th style={{ width: '24%' }}>Etapa RIL</th>
+                      <th style={{ width: '9%', textAlign: 'center' }}>Pres.</th>
+                      <th style={{ width: '9%', textAlign: 'center' }}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -494,15 +556,16 @@ export function GeneralPortfolioReport() {
                         <td>
                           <strong>{m.name}</strong> <span style={{ color: '#64748b' }}>({m.state})</span>
                         </td>
-                        <td style={{ fontSize: '6pt' }}>{STAGE_LABELS[m.stage]}</td>
-                        <td style={{ textAlign: 'center', fontSize: '6.2pt' }}>
+                        <td style={{ fontSize: '5.8pt' }}>{TRACK_SHORT_LABELS[m.track] || 'Uso Estratégico'}</td>
+                        <td style={{ fontSize: '5.8pt' }}>{STAGE_SHORT_LABELS[m.stage] || m.stage}</td>
+                        <td style={{ textAlign: 'center', fontSize: '6pt' }}>
                           {m.biweeklyMeeting?.attendanceRate}%
                         </td>
                         <td style={{ textAlign: 'center' }}>
                           <span style={{
                             color: m.attention?.hasAttention ? '#b45309' : '#166534',
                             fontWeight: 700,
-                            fontSize: '6pt'
+                            fontSize: '5.8pt'
                           }}>
                             {m.attention?.hasAttention ? 'Atenção' : 'Regular'}
                           </span>
@@ -514,47 +577,16 @@ export function GeneralPortfolioReport() {
               </div>
             </section>
 
-            {/* Bloco 6: Matriz de Riscos do Programa Nacional RIL */}
-            <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">VI. MATRIZ DE RISCOS DA CARTEIRA & DIRETRIZES DE MITIGAÇÃO</h2>
-              <table className="print-dossier__table print-dossier__table--risks">
-                <thead>
-                  <tr>
-                    <th style={{ width: '24%' }}>Fator de Risco Mapeado</th>
-                    <th style={{ width: '12%', textAlign: 'center' }}>Severidade</th>
-                    <th style={{ width: '64%' }}>Estratégia Nacional de Mitigação & Salvaguarda</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Assimetria de Capacidade Técnica</strong></td>
-                    <td style={{ textAlign: 'center', color: '#b45309', fontWeight: 700 }}>Alta</td>
-                    <td>Nivelamento através de 3 trilhas adaptadas ao porte municipal e mentorias direcionadas com especialistas da coordenação RIL.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Descontinuidade e Transição Política</strong></td>
-                    <td style={{ textAlign: 'center', color: '#92400e', fontWeight: 700 }}>Média</td>
-                    <td>Institucionalização da comissão dos 10 multiplicadores locais com portaria municipal e repositório digital compartilhado em nuvem.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Conformidade e Sigilo Governamental</strong></td>
-                    <td style={{ textAlign: 'center', color: '#b45309', fontWeight: 700 }}>Alta</td>
-                    <td>Protocolo estrito de segurança vedando dados tributários ou de saúde descaracterizados em ambientes abertos de LLM.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-            {/* Bloco 7: Parecer da Coordenação RIL e Assinaturas Formais de Homologação */}
-            <section className="print-dossier__section print-break-inside-avoid">
-              <h2 className="print-dossier__section-title">VII. TERMO DE CIÊNCIA E VALIDAÇÃO DA COORDENAÇÃO NACIONAL</h2>
+            {/* Bloco 8: Parecer da Coordenação RIL e Assinaturas Formais de Homologação */}
+            <section className="print-dossier__section print-break-inside-avoid" style={{ marginTop: '8pt' }}>
+              <h2 className="print-dossier__section-title">VIII. TERMO DE CIÊNCIA E VALIDAÇÃO DA COORDENAÇÃO NACIONAL</h2>
               <div className="print-dossier__text-box">
                 <p>
                   Certificamos que as métricas aqui expostas representam com exatidão o estado operacional da carteira de 40 municípios atendidos pela Rede de Inovação Local no ciclo Governos na Era da IA. A facilitação contínua assegura a integridade metodológica e o alcance das metas de capacitação e inovação pública pactuadas com os gestores municipais.
                 </p>
               </div>
 
-              <div className="print-signatures-grid" style={{ marginTop: '12pt' }}>
+              <div className="print-signatures-grid" style={{ marginTop: '14pt' }}>
                 <div className="print-signature-box">
                   <div className="print-signature-line" />
                   <strong>Thayâne Carvalho</strong>
