@@ -869,12 +869,57 @@ export function MunicipalityDetailView() {
           </div>
         </section>
 
-        {/* Seções Adicionais Exclusivas do Relatório Completo */}
+        {/* Bloco 4 (Página 1): Parecer Analítico da Facilitação RIL */}
+        {reportType === 'completo' && (
+          <section className="print-dossier__section">
+            <h2 className="print-dossier__section-title">IV. PARECER ANALÍTICO DA FACILITAÇÃO RIL</h2>
+            <div className="print-dossier__text-box" style={{ marginBottom: '4pt' }}>
+              <p>
+                <strong>Avaliação de Engajamento e Prontidão Local: </strong>
+                {selectedMunicipality.maturityLevel === 'iniciante'
+                  ? `O município de ${selectedMunicipality.name} demonstra alinhamento institucional com a coordenação local e assiduidade de ${selectedMunicipality.biweeklyMeeting.attendanceRate}% nos encontros de facilitação. O plano de ação prioriza a estruturação dos repositórios municipais e salvaguardas éticas de LGPD antes da liberação de soluções abertas de inteligência artificial.`
+                  : selectedMunicipality.maturityLevel === 'intermediario'
+                  ? `O município de ${selectedMunicipality.name} apresenta maturidade intermediária consistente (${selectedMunicipality.biweeklyMeeting.attendanceRate}% de presença), com equipes capacitadas para automação de rotinas no serviço público e homologação de casos de uso prioritários.`
+                  : `O município de ${selectedMunicipality.name} atua como polo multiplicador da Rede RIL, com governança de dados estruturada e alta taxa de multiplicação interna (${selectedMunicipality.multiplicationProgress}%). Prontidão plena para compartilhamento de evidências entre governos.`
+                }
+              </p>
+            </div>
+            <table className="print-dossier__table">
+              <tbody>
+                <tr>
+                  <th style={{ width: '25%' }}>Status de Prontidão:</th>
+                  <td style={{ width: '25%' }}>
+                    <strong style={{ color: selectedMunicipality.attention?.hasAttention ? '#b45309' : '#166534' }}>
+                      {selectedMunicipality.attention?.hasAttention ? 'Requer Acompanhamento Prévio' : 'Apto para Homologação'}
+                    </strong>
+                  </td>
+                  <th style={{ width: '25%' }}>Diretriz Prioritária:</th>
+                  <td style={{ width: '25%' }}>
+                    {selectedMunicipality.track === 'otimizacao_servicos'
+                      ? 'Automação de rotinas cidadãs e triagem processual'
+                      : selectedMunicipality.track === 'analise_dados'
+                      ? 'Catalogação de repositórios e integridade cadastral'
+                      : 'Estratégia institucional e governança preditiva'}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Recomendação da Facilitação:</th>
+                  <td colSpan={3}>
+                    {selectedMunicipality.attention?.supportAction ||
+                      'Manter a periodicidade quinzenal de alinhamento com os 10 multiplicadores, assegurando o cumprimento dos critérios de aceite dos entregáveis pactuados.'}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        )}
+
+        {/* Seções Adicionais Exclusivas do Relatório Completo na Página 2 */}
         {reportType === 'completo' && (
           <>
-            {/* Bloco 4: Cronograma de Entregas */}
-            <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">IV. CRONOGRAMA & STATUS DETALHADO DAS ENTREGAS RIL</h2>
+            {/* Bloco 5 (Página 2): Cronograma de Entregas */}
+            <section className="print-dossier__section print-break-before">
+              <h2 className="print-dossier__section-title">V. CRONOGRAMA & STATUS DETALHADO DAS ENTREGAS RIL</h2>
               <table className="print-dossier__table print-dossier__table--deliverables">
                 <thead>
                   <tr>
@@ -903,9 +948,9 @@ export function MunicipalityDetailView() {
               </table>
             </section>
 
-            {/* Bloco 5: Equipe de Multiplicadores Locais */}
-            <section className="print-dossier__section print-break-before">
-              <h2 className="print-dossier__section-title">V. QUADRO DE MULTIPLICADORES LOCAIS</h2>
+            {/* Bloco 6: Equipe de Multiplicadores Locais */}
+            <section className="print-dossier__section">
+              <h2 className="print-dossier__section-title">VI. QUADRO DE MULTIPLICADORES LOCAIS</h2>
               <table className="print-dossier__table print-dossier__table--leaders">
                 <thead>
                   <tr>
@@ -930,9 +975,9 @@ export function MunicipalityDetailView() {
               </table>
             </section>
 
-            {/* Bloco 6: Matriz de Riscos & Diretrizes de Mitigação (Detalhamento Extra) */}
+            {/* Bloco 7: Matriz de Riscos & Diretrizes de Mitigação */}
             <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">VI. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
+              <h2 className="print-dossier__section-title">VII. MATRIZ DE RISCOS & DIRETRIZES DE MITIGAÇÃO</h2>
               <table className="print-dossier__table print-dossier__table--risks">
                 <thead>
                   <tr>
@@ -961,9 +1006,9 @@ export function MunicipalityDetailView() {
               </table>
             </section>
 
-            {/* Bloco 7: Parecer e Termo de Validação Operacional */}
+            {/* Bloco 8: Parecer e Termo de Validação Operacional */}
             <section className="print-dossier__section print-break-inside-avoid">
-              <h2 className="print-dossier__section-title">VII. TERMO DE CIÊNCIA E VALIDAÇÃO OPERACIONAL</h2>
+              <h2 className="print-dossier__section-title">VIII. TERMO DE CIÊNCIA E VALIDAÇÃO OPERACIONAL</h2>
               <div className="print-dossier__text-box">
                 <p>
                   As informações registradas neste dossiê refletem as evidências apuradas nos encontros quinzenais de facilitação, nos diagnósticos de maturidade e no acompanhamento dos entregáveis da jornada de transformação digital e inteligência artificial da Rede de Inovação Local (RIL).
