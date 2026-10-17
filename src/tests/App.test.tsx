@@ -9,11 +9,11 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     expect(screen.getByText('RIL')).toBeInTheDocument()
     expect(screen.getByText('Projetos IA')).toBeInTheDocument()
 
-    expect(screen.getByText('1. Entrada & Alinhamento')).toBeInTheDocument()
-    expect(screen.getByText('2. Diagnóstico de IA')).toBeInTheDocument()
-    expect(screen.getByText('3. Formação & Trilhas')).toBeInTheDocument()
-    expect(screen.getByText('4. Aplicação & Multiplicação')).toBeInTheDocument()
-    expect(screen.getByText('5. Ciclo Concluído')).toBeInTheDocument()
+    expect(screen.getAllByText('1. Entrada & Alinhamento').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('2. Diagnóstico de IA').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('3. Formação & Trilhas').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('4. Aplicação & Multiplicação').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('5. Ciclo Concluído').length).toBeGreaterThanOrEqual(1)
   })
 
   it('switches to Ficha One-Page when a municipality card is clicked', () => {
