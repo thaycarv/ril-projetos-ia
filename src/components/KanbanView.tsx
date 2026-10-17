@@ -1,6 +1,7 @@
 import { Search, AlertTriangle, CheckCircle2, ChevronRight } from 'lucide-react'
 import { useProgram } from '../context/ProgramContext'
 import type { MunicipalityStage, Municipality } from '../types'
+import { GeneralPortfolioReport } from './GeneralPortfolioReport'
 
 const STAGES_CONFIG: Array<{ id: MunicipalityStage; title: string; desc: string }> = [
   { id: 'alinhamento', title: '1. Entrada & Alinhamento', desc: 'Adesão formalizada e indicação dos 10 líderes municipais.' },
@@ -85,6 +86,8 @@ export function KanbanView({ onOpenDetail }: KanbanViewProps) {
               {reg}
             </button>
           ))}
+
+          <GeneralPortfolioReport />
         </div>
       </div>
 

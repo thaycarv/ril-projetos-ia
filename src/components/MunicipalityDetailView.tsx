@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { flushSync } from 'react-dom'
+import { flushSync, createPortal } from 'react-dom'
 import {
   Building2,
   Users,
@@ -712,8 +712,10 @@ export function MunicipalityDetailView() {
       </main>
 
       {/* Dossiê Executivo Formal para Impressão em PDF (Estrutura Institucional Oficial - Não é cópia de tela) */}
-      <article className={`print-dossier print-dossier--${reportType}`} aria-hidden="true">
-        <header className="print-dossier__header">
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <article className={`print-dossier print-dossier--${reportType}`} aria-hidden="true">
+            <header className="print-dossier__header">
           <div className="print-dossier__brand">
             <span className="print-dossier__badge">REDE DE INOVAÇÃO LOCAL (RIL BRASIL)</span>
           </div>
@@ -1032,7 +1034,9 @@ export function MunicipalityDetailView() {
             </section>
           </>
         )}
-      </article>
+      </article>,
+      document.body
+    )}
     </div>
   )
 }

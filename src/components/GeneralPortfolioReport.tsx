@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { flushSync } from 'react-dom'
+import { flushSync, createPortal } from 'react-dom'
 import {
   FileDown,
   X,
@@ -213,9 +213,15 @@ export function GeneralPortfolioReport() {
       )}
 
       {/* Dossiê de Impressao Formal da Carteira Geral (Visivel Somente no @media print) */}
-      <article ref={reportRef} className="print-dossier print-portfolio-dossier" aria-label="Dossiê Executivo da Carteira Geral">
-        {/* Cabecalho Institucional Padrao RIL Brasil */}
-        <header className="print-dossier__header">
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <article
+            ref={reportRef}
+            className={`print-dossier print-portfolio-dossier print-portfolio-dossier--${reportType}`}
+            aria-label="Dossiê Executivo da Carteira Geral"
+          >
+            {/* Cabecalho Institucional Padrao RIL Brasil */}
+            <header className="print-dossier__header">
           <div className="print-dossier__brand">
             <span className="print-dossier__badge">REDE DE INOVAÇÃO LOCAL (RIL BRASIL)</span>
             <span style={{ fontSize: '7pt', color: '#475569', fontWeight: 600 }}>
@@ -565,7 +571,9 @@ export function GeneralPortfolioReport() {
             </section>
           </>
         )}
-      </article>
+      </article>,
+      document.body
+    )}
     </>
   )
 }
