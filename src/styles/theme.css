@@ -1703,6 +1703,9 @@ a {
   .sidebar,
   .top-bar,
   .kpi-strip,
+  .kanban-wrapper,
+  .filter-bar,
+  .kanban-container,
   .municipality-picker-bar,
   .municipality-fiche,
   .report-modal-overlay,
@@ -1723,6 +1726,19 @@ a {
     background: #ffffff !important;
     font-size: 7pt !important;
     line-height: 1.25 !important;
+  }
+
+  /* Layout em 2 colunas para tabela de 40 municipios na pagina 2 */
+  .print-portfolio-grid-2col {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8pt !important;
+    align-items: start !important;
+  }
+
+  .print-portfolio-table-half {
+    width: 100% !important;
+    margin-top: 0 !important;
   }
 
   .print-dossier__header {

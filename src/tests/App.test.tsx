@@ -130,4 +130,30 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     printSpy.mockRestore()
     vi.useRealTimers()
   })
+
+  it('renders general portfolio report button in kanban view and triggers print on modal selection', () => {
+    vi.useFakeTimers()
+    const printSpy = vi.spyOn(window, 'print').mockImplementation(() => {})
+    render(<App />)
+
+    const generalReportBtn = screen.getByRole('button', { name: /relatório geral da carteira \(pdf\)/i })
+    expect(generalReportBtn).toBeInTheDocument()
+
+    // Abre o modal
+    fireEvent.click(generalReportBtn)
+    expect(screen.getByRole('heading', { name: /relatório geral da carteira ril projetos ia/i })).toBeInTheDocument()
+    expect(screen.getByText(/relatório sintético executivo/i)).toBeInTheDocument()
+    expect(screen.getByText(/relatório analítico completo/i)).toBeInTheDocument()
+
+    // Clica no relatório sintético
+    const generateSinteticoBtn = screen.getByRole('button', { name: /gerar relatório sintético/i })
+    fireEvent.click(generateSinteticoBtn)
+
+    vi.runAllTimers()
+    expect(printSpy).toHaveBeenCalled()
+
+    printSpy.mockRestore()
+    vi.useRealTimers()
+  })
 })
+

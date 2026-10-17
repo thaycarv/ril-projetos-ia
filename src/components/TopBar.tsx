@@ -1,4 +1,5 @@
 import { Columns3, FileText } from 'lucide-react'
+import { GeneralPortfolioReport } from './GeneralPortfolioReport'
 
 interface TopBarProps {
   currentView: 'kanban' | 'detail'
@@ -14,6 +15,8 @@ export function TopBar({ currentView, onViewChange }: TopBarProps) {
       </div>
 
       <div className="top-bar__actions">
+        {currentView === 'kanban' && <GeneralPortfolioReport />}
+
         <div className="view-toggle" role="group" aria-label="Modo de visualização">
           <button
             type="button"
