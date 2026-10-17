@@ -9,7 +9,7 @@ export function TopBar({ currentView, onViewChange }: TopBarProps) {
   return (
     <header className="top-bar">
       <div className="top-bar__title">
-        <h1>{currentView === 'kanban' ? 'Visão Geral dos 40 Municípios' : 'Ficha Executiva do Município'}</h1>
+        <h1>{currentView === 'kanban' ? 'Visão Geral dos Municípios' : 'Ficha Executiva do Município'}</h1>
         <p>Acompanhamento da jornada de transformação digital e IA</p>
       </div>
 
