@@ -314,14 +314,19 @@ a {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .view-toggle {
   display: flex;
+  align-items: center;
   background-color: var(--bg);
   padding: 4px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--line);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .view-toggle-btn {
@@ -337,6 +342,8 @@ a {
   color: var(--muted);
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .view-toggle-btn.is-active {
@@ -433,6 +440,7 @@ a {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .pill-btn {
@@ -792,6 +800,33 @@ a {
 
 .btn-download-pdf:active {
   transform: translateY(0);
+}
+
+.btn-download-pdf--general {
+  width: auto;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--primary);
+  background-color: var(--surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+}
+
+.btn-download-pdf--general:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(45, 69, 51, 0.25);
 }
 
 .fiche-grid {
@@ -1684,22 +1719,8 @@ a {
     padding: 0 !important;
   }
 
-  /* Preserva os containers ancestrais sem margens ou restricoes */
+  /* Oculta toda a interface interativa da aplicacao quando em impressao */
   .app-layout,
-  .main-content,
-  .detail-view--full {
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: auto !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  /* Oculta todos os componentes interativos de tela */
   .sidebar,
   .top-bar,
   .kpi-strip,
@@ -1717,7 +1738,7 @@ a {
     display: none !important;
   }
 
-  /* Exibe exclusivamente o dossie formal de gestao */
+  /* Exibe exclusivamente o dossie formal de gestao renderizado no body */
   .print-dossier {
     display: block !important;
     visibility: visible !important;
