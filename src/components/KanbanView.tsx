@@ -69,10 +69,10 @@ export function KanbanView({ onOpenDetail }: KanbanViewProps) {
         <div className="filter-pills">
           <button
             type="button"
-            className={`pill-btn ${onlyAttention ? 'is-attention-active' : ''}`}
+            className={`pill-btn pill-btn--attention ${onlyAttention ? 'is-attention-active' : ''}`}
             onClick={() => setOnlyAttention(!onlyAttention)}
           >
-            <AlertTriangle size={14} />
+            <AlertTriangle size={13} />
             <span>Apenas Pontos de Atenção</span>
           </button>
 

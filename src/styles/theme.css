@@ -410,21 +410,25 @@ a {
 .filter-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px 28px;
-  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 24px;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .search-input-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background-color: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: 8px 14px;
-  width: 320px;
+  border-radius: 20px;
+  padding: 6px 12px;
+  flex: 1 1 200px;
+  min-width: 160px;
+  max-width: 270px;
+  flex-shrink: 0;
 }
 
 .search-input-wrap input {
@@ -432,30 +436,39 @@ a {
   background: transparent;
   outline: none;
   width: 100%;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--ink);
 }
 
 .filter-pills {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-wrap: nowrap;
 }
 
 .pill-btn {
-  padding: 6px 12px;
+  padding: 5px 11px;
   border-radius: 20px;
   border: 1px solid var(--line);
   background-color: var(--surface);
-  font-size: 0.75rem;
+  font-size: 0.73rem;
   font-weight: 600;
   color: var(--ink-secondary);
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.15s ease;
+}
+
+.pill-btn:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
 }
 
 .pill-btn.is-active {
@@ -465,11 +478,33 @@ a {
   font-weight: 700;
 }
 
-.pill-btn.is-attention-active {
-  background-color: var(--warning-bg);
-  color: var(--warning);
-  border-color: var(--warning);
+/* Botão Apenas Pontos de Atenção - Paleta Quente Amarelo/Laranja/Âmbar */
+.pill-btn--attention {
+  background-color: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
   font-weight: 700;
+}
+
+[data-theme='dark'] .pill-btn--attention {
+  background-color: rgba(245, 158, 11, 0.14);
+  color: #fde68a;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.pill-btn--attention:hover {
+  background-color: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+  transform: translateY(-1px);
+}
+
+.pill-btn--attention.is-attention-active,
+.pill-btn.is-attention-active {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  color: #ffffff;
+  border-color: #b45309;
+  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.32);
 }
 
 /* Kanban da Jornada RIL */
@@ -802,31 +837,32 @@ a {
   transform: translateY(0);
 }
 
+/* Botão Relatório Geral da Carteira (PDF) - Paleta Verde Floresta/Oliva Executivo */
 .btn-download-pdf--general {
   width: auto;
-  padding: 6px 14px;
+  padding: 5px 13px;
   border-radius: 20px;
-  border: 1px solid var(--primary);
-  background-color: var(--surface);
-  font-size: 0.75rem;
+  background: linear-gradient(135deg, var(--oliva-700, #243829) 0%, var(--primary, #2d4533) 100%);
+  border: 1px solid #1e3023;
+  color: #ffffff;
+  font-size: 0.73rem;
   font-weight: 700;
-  color: var(--primary);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   white-space: nowrap;
   flex-shrink: 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 5px rgba(45, 69, 51, 0.25);
   transition: all 0.15s ease;
 }
 
 .btn-download-pdf--general:hover {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary, #2d4533) 0%, var(--oliva-600, #3d5c45) 100%);
   color: #ffffff;
-  border-color: var(--primary);
+  border-color: var(--oliva-600);
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(45, 69, 51, 0.25);
+  box-shadow: 0 3px 8px rgba(45, 69, 51, 0.35);
 }
 
 .fiche-grid {
