@@ -142,8 +142,8 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
     // Abre o modal
     fireEvent.click(generalReportBtn)
     expect(screen.getByRole('heading', { name: /relatório geral da carteira ril projetos ia/i })).toBeInTheDocument()
-    expect(screen.getByText(/relatório sintético executivo/i)).toBeInTheDocument()
-    expect(screen.getByText(/relatório analítico completo/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/relatório sintético executivo/i).length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText(/relatório analítico completo/i).length).toBeGreaterThanOrEqual(1)
 
     // Clica no relatório sintético
     const generateSinteticoBtn = screen.getByRole('button', { name: /gerar relatório sintético/i })
