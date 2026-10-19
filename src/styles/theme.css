@@ -1,49 +1,49 @@
 :root {
   --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
-  /* Paleta Oliva Institucional Executivo */
-  --oliva-50: #f4f7f4;
-  --oliva-100: #e5ede6;
-  --oliva-200: #cbdbcd;
-  --oliva-500: #4a6d53;
-  --oliva-600: #3d5c45;
-  --oliva-700: #2d4533;
-  --oliva-800: #1e2e23;
-  --oliva-900: #141f17;
+  /* Paleta Cobalto GovTech & Inovação Pública */
+  --oliva-50: #eff6ff;
+  --oliva-100: #dbeafe;
+  --oliva-200: #bfdbfe;
+  --oliva-500: #3b82f6;
+  --oliva-600: #2563eb;
+  --oliva-700: #1d4ed8;
+  --oliva-800: #1e40af;
+  --oliva-900: #172554;
 
-  --bg: #f4f6f4;
+  --bg: #f8fafc;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --ink: #17231a;
-  --ink-secondary: #314235;
-  --muted: #5e7363;
-  --line: #dce3de;
-  --line-strong: #c2cdc5;
+  --ink: #0f172a;
+  --ink-secondary: #334155;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
 
-  --primary: #3d5c45;
-  --primary-hover: #2d4533;
-  --primary-light: #e5ede6;
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
+  --primary-light: #eff6ff;
 
-  --success: #2e7d52;
-  --success-bg: #eff7f2;
-  --success-border: #bce3cb;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
 
-  --warning: #b8732a;
-  --warning-bg: #fff8f0;
-  --warning-border: #f5d6b5;
+  --warning: #ea580c;
+  --warning-bg: #fff7ed;
+  --warning-border: #fed7aa;
 
-  --danger: #be2e3a;
-  --danger-bg: #fdf2f2;
-  --danger-border: #f9cacf;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
 
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 18px;
 
-  --shadow-sm: 0 1px 3px 0 rgb(23 35 26 / 0.06);
-  --shadow-md: 0 4px 8px -1px rgb(23 35 26 / 0.08), 0 2px 4px -2px rgb(23 35 26 / 0.05);
-  --shadow-lg: 0 12px 20px -3px rgb(23 35 26 / 0.1), 0 4px 6px -4px rgb(23 35 26 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.06);
+  --shadow-md: 0 4px 8px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.05);
+  --shadow-lg: 0 12px 20px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.05);
 }
 
 [data-theme='dark'] {
