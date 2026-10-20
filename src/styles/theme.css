@@ -1575,6 +1575,10 @@ a {
   color: var(--ink-secondary);
   line-height: 1.5;
   margin: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  width: 100%;
 }
 
 .report-options-grid {
@@ -1641,6 +1645,16 @@ a {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.report-choice-card__content p {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.45;
 }
 
 .report-choice-card__header {
