@@ -4,7 +4,8 @@ import {
   FileDown,
   X,
   FileCheck2,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Printer
 } from 'lucide-react'
 import { useProgram } from '../context/ProgramContext'
 import type { MunicipalityStage } from '../types'
@@ -140,74 +141,52 @@ export function GeneralPortfolioReport() {
 
             <div className="report-modal-body">
               <p className="report-modal-intro">
-                Em conformidade com os padrões executivos da Rede de Inovação Local (RIL), os relatórios consolidam o avanço das 40 cidades participantes na jornada Governos na Era da IA, combinando dados quantitativos, matriz de riscos e governança federativa.
+                Escolha as informações que deseja incluir no documento:
               </p>
 
               <div className="report-options-grid">
-                {/* Opcao 1: Relatorio Sintetico (1 Pagina) */}
+                {/* Opção 1: Relatório Simples */}
                 <div className="report-choice-card">
-                  <div className="report-choice-card__badge report-choice-card__badge--simple">
-                    Página Única (One-Page)
-                  </div>
                   <div className="report-choice-card__content">
                     <div className="report-choice-card__header">
-                      <FileCheck2 size={24} color="var(--primary)" />
-                      <div>
-                        <h5>Relatório Sintético Executivo</h5>
-                        <small style={{ color: 'var(--muted)', fontSize: '0.72rem' }}>
-                          Visão de Alto Nível para Gabinetes e Lideranças
-                        </small>
-                      </div>
+                      <FileCheck2 size={20} color="var(--primary)" />
+                      <h5>Relatório simples</h5>
                     </div>
-                    <p style={{ fontSize: '0.76rem', color: 'var(--ink-secondary)', margin: '4px 0' }}>
-                      Resumo estratégico condensado em 1 página contendo indicadores globais, distribuição pelo funil de 5 etapas, cobertura regional, médias de maturidade e lista de pontos de atenção ativos.
-                    </p>
                     <div className="report-choice-card__items">
-                      <span className="report-choice-card__items-title">Conteúdo Selecionado:</span>
+                      <span className="report-choice-card__items-title">Conteúdo incluído:</span>
                       <ul>
-                        <li>Cabeçalho Institucional RIL Brasil & Meta-Dados</li>
-                        <li>Painel de 6 Indicadores Estratégicos Globais</li>
-                        <li>Funil de Maturidade das 5 Etapas do Programa</li>
-                        <li>Distribuição Regional e Médias de Maturidade em IA</li>
-                        <li>Mapeamento Sintético de Pontos de Atenção Ativos</li>
+                        <li>Identificação institucional</li>
+                        <li>Painel de indicadores estratégicos globais</li>
+                        <li>Funil de etapas do programa</li>
+                        <li>Distribuição regional e maturidade em IA</li>
+                        <li>Mapeamento de pontos de atenção ativos</li>
                       </ul>
                     </div>
                   </div>
                   <button
                     type="button"
-                    className="btn-generate-report btn-generate-report--primary"
+                    className="btn-generate-report btn-generate-report--simple"
                     onClick={() => handleTriggerPrint('sintetico')}
                   >
-                    <FileDown size={14} />
-                    <span>Gerar Relatório Sintético (1 Pág)</span>
+                    <Printer size={15} />
+                    <span>Gerar Relatório simples</span>
                   </button>
                 </div>
 
-                {/* Opcao 2: Relatorio Analitico Completo (2 Paginas) */}
+                {/* Opção 2: Relatório Completo */}
                 <div className="report-choice-card report-choice-card--complete">
-                  <div className="report-choice-card__badge report-choice-card__badge--complete">
-                    Dossiê Consolidado (2 Páginas)
-                  </div>
                   <div className="report-choice-card__content">
                     <div className="report-choice-card__header">
-                      <FileSpreadsheet size={24} color="#92400e" />
-                      <div>
-                        <h5>Relatório Analítico Completo</h5>
-                        <small style={{ color: 'var(--muted)', fontSize: '0.72rem' }}>
-                          Governança Nacional & Rastreabilidade dos 40 Municípios
-                        </small>
-                      </div>
+                      <FileSpreadsheet size={20} color="var(--primary)" />
+                      <h5>Relatório completo</h5>
                     </div>
-                    <p style={{ fontSize: '0.76rem', color: 'var(--ink-secondary)', margin: '4px 0' }}>
-                      Dossiê completo diagramado rigorosamente em 2 páginas. Inclui o panorama estratégico na página 1 e a tabela analítica dos 40 municípios (em 2 colunas), matriz nacional de riscos e validação institucional na página 2.
-                    </p>
                     <div className="report-choice-card__items">
-                      <span className="report-choice-card__items-title">Estrutura Diagramada (2 Páginas):</span>
+                      <span className="report-choice-card__items-title">Conteúdo incluído:</span>
                       <ul>
-                        <li><strong>Pág. 1:</strong> KPIs globais, funil de etapas, diagnóstico de IA e atenção</li>
-                        <li><strong>Pág. 2:</strong> Quadro analítico dos 40 municípios em 2 colunas</li>
-                        <li><strong>Pág. 2:</strong> Matriz de Riscos Operacionais do Programa Nacional</li>
-                        <li><strong>Pág. 2:</strong> Parecer da Coordenação RIL e Assinaturas Formais</li>
+                        <li>Todo o conteúdo do Relatório simples</li>
+                        <li>Quadro analítico dos 40 municípios</li>
+                        <li>Matriz de riscos operacionais do programa</li>
+                        <li>Parecer da coordenação e termos de validação</li>
                       </ul>
                     </div>
                   </div>
@@ -216,8 +195,8 @@ export function GeneralPortfolioReport() {
                     className="btn-generate-report btn-generate-report--complete"
                     onClick={() => handleTriggerPrint('analitico')}
                   >
-                    <FileDown size={14} />
-                    <span>Gerar Dossiê Completo (2 Págs)</span>
+                    <FileDown size={15} />
+                    <span>Gerar Relatório completo</span>
                   </button>
                 </div>
               </div>
