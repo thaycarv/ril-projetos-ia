@@ -222,6 +222,19 @@ export function GeneralPortfolioReport() {
                 </div>
               </div>
             </div>
+
+            <footer className="report-modal-footer">
+              <span className="report-modal-footer__hint">
+                Dica: na caixa de impressão, selecione "Salvar como PDF" e marque a opção "Gráficos de segundo plano".
+              </span>
+              <button
+                type="button"
+                className="btn-modal-close"
+                onClick={() => setModalOpen(false)}
+              >
+                Cancelar
+              </button>
+            </footer>
           </div>
         </div>
       )}

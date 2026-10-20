@@ -1529,7 +1529,7 @@ a {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-xl);
   box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.28), 0 8px 16px -4px rgba(15, 23, 42, 0.1);
-  width: min(840px, 100%);
+  width: min(920px, 94vw);
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -1563,6 +1563,7 @@ a {
 .report-modal-body {
   padding: 24px;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: calc(90vh - 140px);
   display: flex;
   flex-direction: column;
@@ -1578,11 +1579,12 @@ a {
 
 .report-options-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 18px;
+  width: 100%;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .report-options-grid {
     grid-template-columns: 1fr;
   }
