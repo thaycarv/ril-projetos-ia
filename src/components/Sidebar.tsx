@@ -16,8 +16,8 @@ export function Sidebar({ currentView, onViewChange, collapsed, onToggleCollapse
       <div className="sidebar__header">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', gap: '8px' }}>
           <div className="brand-badge">
-            <div className="brand-logo-icon">RIL</div>
-            {!collapsed && <span>Projetos IA</span>}
+            <div className="brand-logo-icon">PA</div>
+            {!collapsed && <span>Portfólio Ágil IA</span>}
           </div>
           <button
             type="button"
@@ -57,7 +57,7 @@ export function Sidebar({ currentView, onViewChange, collapsed, onToggleCollapse
       <div className="sidebar__footer">
         {!collapsed && (
           <div className="facilitator-card">
-            <small>Facilitador(a) RIL</small>
+            <small>Facilitador(a) do Programa</small>
             <strong>
               Acompanhamento:
               <br />

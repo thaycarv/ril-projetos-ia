@@ -2,12 +2,13 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { App } from '../App'
 
-describe('RIL Projetos IA - Governos na Era da IA', () => {
-  it('renders brand and 5 RIL stages in kanban view', () => {
+describe('Portfólio Ágil IA - Gestão Municipal de Inovação e IA', () => {
+  it('renders brand and 5 program stages in kanban view', () => {
     render(<App />)
 
-    expect(screen.getByText('RIL')).toBeInTheDocument()
-    expect(screen.getByText('Projetos IA')).toBeInTheDocument()
+    expect(screen.getByText('Portfólio Ágil IA')).toBeInTheDocument()
+    expect(screen.getAllByText('PA').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getByText(/inspirado no programa governos na era da ia/i)).toBeInTheDocument()
 
     expect(screen.getAllByText('1. Entrada & Alinhamento').length).toBeGreaterThanOrEqual(1)
     expect(screen.getAllByText('2. Diagnóstico de IA').length).toBeGreaterThanOrEqual(1)
@@ -141,7 +142,7 @@ describe('RIL Projetos IA - Governos na Era da IA', () => {
 
     // Abre o modal
     fireEvent.click(generalReportBtn)
-    expect(screen.getByRole('heading', { name: /relatório geral da carteira ril projetos ia/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /relatório geral da carteira portfólio ágil ia/i })).toBeInTheDocument()
     expect(screen.getAllByText(/relatório simples/i).length).toBeGreaterThanOrEqual(1)
     expect(screen.getAllByText(/relatório completo/i).length).toBeGreaterThanOrEqual(1)
 

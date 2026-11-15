@@ -2014,3 +2014,29 @@ a {
   }
 }
 
+.app-inspiration-note {
+  margin-top: auto;
+  padding: 14px 28px 20px;
+  border-top: 1px solid var(--line);
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media print {
+  .app-inspiration-note {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

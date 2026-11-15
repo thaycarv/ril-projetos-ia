@@ -1,0 +1,19 @@
+name: Tarefa ou Melhoria
+description: Registrar uma correção, melhoria ou nova funcionalidade
+title: "[Tarefa]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto e Objetivo
+      description: O que precisa ser ajustado ou construído e por quê.
+    validations:
+      required: true
+  - type: textarea
+    id: aceite
+    attributes:
+      label: Critérios de Aceite
+      description: Como validar que a demanda está concluída.
+    validations:
+      required: true

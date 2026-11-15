@@ -1,25 +1,27 @@
-# 🏛️ RIL Projetos IA: Gestão e Facilitação Municipal
+# Portfólio Ágil IA: Gestão e Facilitação Municipal
 
-Plataforma executiva de governança e acompanhamento de carteira desenvolvida para a facilitação do programa **Governos na Era da IA**, promovido pela **Rede de Inovação Local (RIL)** no Brasil.
+Plataforma executiva de governança e acompanhamento de carteira para programas municipais de inovação aberta e inteligência artificial.
+
+> **Referência e Inspiração:** Projeto conceitual inspirado na estrutura do programa **Governos na Era da IA**, promovido pela **Rede de Inovação Local (RIL)**.
 
 **Responsável Técnica e Metodológica:** Thayâne Carvalho (Gestão de Projetos & PMO)  
 **Acesso em Produção:** [https://thaycarv.github.io/ril-projetos-ia/](https://thaycarv.github.io/ril-projetos-ia/)
 
 ---
 
-## 🎯 Propósito da Aplicação
+## Propósito da Aplicação
 
-O sistema foi estruturado para atender às necessidades reais do papel de facilitação pública, permitindo o acompanhamento simultâneo de **40 municípios brasileiros** e **400 lideranças locais** (10 multiplicadores por município), organizando a jornada de inovação aberta, inteligência artificial e transformação digital nas prefeituras.
+O sistema organiza o acompanhamento simultâneo de **40 municípios brasileiros** e **400 lideranças locais** (10 multiplicadores por município), estruturando a jornada de transformação digital e inteligência artificial nas prefeituras.
 
 ---
 
-## 🧭 Decisões de Design, Arquitetura e Governança
+## Decisões de Design, Arquitetura e Governança
 
-Todas as diretrizes de interface e experiência foram alinhadas e consolidadas para proporcionar clareza executiva e eliminar ruídos visuais:
+Todas as diretrizes de interface e experiência foram alinhadas para proporcionar clareza executiva e eliminar ruídos visuais:
 
-### 1. Nomenclaturas Oficiais e Estrutura de Navegação
+### 1. Nomenclaturas e Estrutura de Navegação
 * **Alternador do Topo:** Rótulos diretos e objetivos: **Visão Geral** (Kanban interativo da carteira) e **Municípios** (Ficha executiva do município).
-* **Subtítulo Institucional:** Definido como `Gestão e facilitação municipal.` logo abaixo da marca *RIL Projetos IA*.
+* **Subtítulo Institucional:** Definido como `Gestão e facilitação municipal.` logo abaixo da marca *Portfólio Ágil IA*.
 * **Contador de Monitoramento:** Rodapé da barra lateral formatado em duas linhas para máxima legibilidade:
   > **Acompanhamento:**  
   > **40 municípios**
@@ -78,11 +80,11 @@ A aplicação conta também com suporte a Dark Mode coordenado em tons de oliva 
 
 ---
 
-## 📊 As 5 Etapas Oficiais da Jornada RIL Brasil
+## As 5 Etapas da Jornada
 
 1. **1. Entrada & Alinhamento:** Adesão formalizada, indicação dos 10 líderes municipais e primeiro encontro de sensibilização.
 2. **2. Diagnóstico de IA:** Aplicação da matriz de maturidade em 4 dimensões (Governança, Ética/LGPD, Capacidade Técnica e Aplicação Prática) e escolha da trilha.
-3. **3. Formação & Trilhas:** Oficinas práticas no Portal RIL e capacitação dos servidores multiplicadores.
+3. **3. Formação & Trilhas:** Oficinas práticas na plataforma do programa e capacitação dos servidores multiplicadores.
 4. **4. Aplicação & Multiplicação:** Experimentação do caso de uso de IA na prefeitura e repasse de metodologia às equipes.
 5. **5. Ciclo Concluído:** Resultados consolidados, síntese para a liderança e integração à comunidade de governos inovadores.
 
@@ -110,7 +112,8 @@ cd ril-projetos-ia
 # 3. Instalar dependências
 npm install
 
-# 4. Executar os testes automatizados
+# 4. Executar linter e testes automatizados
+npm run lint
 npm test
 
 # 5. Iniciar o ambiente de desenvolvimento local

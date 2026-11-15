@@ -124,7 +124,7 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
             hasAttention,
             category: hasAttention ? 'engajamento' : undefined,
             reason: hasAttention ? reason || 'Ponto de atenção registrado pela facilitadora.' : undefined,
-            supportAction: hasAttention ? supportAction || 'Acionar liderança RIL para alinhamento.' : undefined,
+            supportAction: hasAttention ? supportAction || 'Acionar coordenação do programa para alinhamento.' : undefined,
           },
           updatedAt: new Date().toISOString(),
         }
@@ -142,7 +142,7 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
   }
 
   const resetToDefaults = () => {
-    if (window.confirm('Deseja restaurar a carteira dos 40 municípios para o estado inicial da RIL?')) {
+    if (window.confirm('Deseja restaurar a carteira dos 40 municípios para o estado inicial?')) {
       const fresh = buildSeedMunicipalities()
       setMunicipalities(fresh)
       setSelectedMunicipalityId(fresh[0]?.id || 'mun-1')

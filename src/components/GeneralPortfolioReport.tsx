@@ -83,7 +83,7 @@ export function GeneralPortfolioReport() {
 
   const handleTriggerPrint = (type: 'sintetico' | 'analitico') => {
     const originalTitle = document.title
-    document.title = `Relatorio-Geral-Carteira-${type === 'sintetico' ? 'Sintetico' : 'Analitico'}-RIL-Projetos-IA`
+    document.title = `Relatorio-Geral-Carteira-${type === 'sintetico' ? 'Sintetico' : 'Analitico'}-Portfolio-Agil-IA`
 
     flushSync(() => {
       setReportType(type)
@@ -125,7 +125,7 @@ export function GeneralPortfolioReport() {
           <div className="report-modal-window" onClick={e => e.stopPropagation()}>
             <header className="report-modal-header">
               <div className="report-modal-header__text">
-                <h4 id="general-report-modal-title">Relatório Geral da Carteira RIL Projetos IA</h4>
+                <h4 id="general-report-modal-title">Relatório Geral da Carteira Portfólio Ágil IA</h4>
                 <p>Selecione a modalidade de relatório para exportação ou impressão em PDF</p>
               </div>
               <button
@@ -226,12 +226,12 @@ export function GeneralPortfolioReport() {
             className={`print-dossier print-portfolio-dossier print-portfolio-dossier--${reportType}`}
             aria-label="Dossiê Executivo da Carteira Geral"
           >
-            {/* Cabecalho Institucional Padrao RIL Brasil */}
+            {/* Cabecalho Institucional da Carteira */}
             <header className="print-dossier__header">
           <div className="print-dossier__brand">
-            <span className="print-dossier__badge">REDE DE INOVAÇÃO LOCAL (RIL BRASIL)</span>
+            <span className="print-dossier__badge">PORTFÓLIO ÁGIL IA</span>
             <span style={{ fontSize: '7pt', color: '#475569', fontWeight: 600 }}>
-              PROGRAMA GOVERNOS NA ERA DA IA (2026)
+              GESTÃO MUNICIPAL DE INOVAÇÃO E IA (2026)
             </span>
           </div>
           <h1 className="print-dossier__title">
@@ -283,9 +283,9 @@ export function GeneralPortfolioReport() {
           </table>
         </section>
 
-        {/* Bloco 2: Pipeline de Evolucao nas 5 Etapas do Funil RIL */}
+        {/* Bloco 2: Pipeline de Evolucao nas 5 Etapas */}
         <section className="print-dossier__section">
-          <h2 className="print-dossier__section-title">II. DISTRIBUIÇÃO DA CARTEIRA PELAS 5 ETAPAS DA JORNADA RIL</h2>
+          <h2 className="print-dossier__section-title">II. DISTRIBUIÇÃO DA CARTEIRA PELAS 5 ETAPAS DA JORNADA</h2>
           <table className="print-dossier__table">
             <thead>
               <tr>
@@ -313,7 +313,7 @@ export function GeneralPortfolioReport() {
                 <td style={{ verticalAlign: 'top' }}>
                   <strong>{stageCounts.formacao} cidades</strong> ({Math.round((stageCounts.formacao / totalMun) * 100)}%)
                   <p style={{ fontSize: '6pt', color: '#475569', margin: '2pt 0 0 0' }}>
-                    Oficinas práticas no Portal RIL e casos de uso prioritários.
+                    Oficinas práticas na plataforma e casos de uso prioritários.
                   </p>
                 </td>
                 <td style={{ verticalAlign: 'top' }}>
@@ -432,7 +432,7 @@ export function GeneralPortfolioReport() {
                 <tr>
                   <td><strong>Assimetria de Capacidade Técnica</strong></td>
                   <td style={{ textAlign: 'center', color: '#b45309', fontWeight: 700 }}>Alta</td>
-                  <td>Nivelamento através de 3 trilhas adaptadas ao porte municipal e mentorias direcionadas com especialistas da coordenação RIL.</td>
+                  <td>Nivelamento através de 3 trilhas adaptadas ao porte municipal e mentorias direcionadas com especialistas do programa.</td>
                 </tr>
                 <tr>
                   <td><strong>Descontinuidade e Transição Política</strong></td>
@@ -455,7 +455,7 @@ export function GeneralPortfolioReport() {
             <h2 className="print-dossier__section-title">VI. PARECER ANALÍTICO DA FACILITAÇÃO NACIONAL & DIRETRIZES OPERACIONAIS</h2>
             <div className="print-dossier__text-box">
               <p>
-                <strong>Diagnóstico Operacional Integrado:</strong> A carteira nacional de 40 municípios do Programa Governos na Era da IA demonstra ritmo acelerado de maturação, com {Math.round(((stageCounts.formacao + stageCounts.multiplicacao + stageCounts.concluido) / totalMun) * 100)}% dos municípios já integrados às oficinas de formação ou aos ciclos práticos de multiplicação interna. A taxa média de assiduidade de {avgAttendance}% nos encontros quinzenais confirma o engajamento contínuo dos pontos focais municipais. Como diretriz prioritária para o próximo ciclo, recomenda-se a intensificação das mentorias técnicas na dimensão de Capacidade Técnica ({avgScores.tec}/10) e a consolidação dos repositórios compartilhados para mitigar riscos de descontinuidade administrativa.
+                <strong>Diagnóstico Operacional Integrado:</strong> A carteira nacional de 40 municípios do programa de transformação digital e IA demonstra ritmo acelerado de maturação, com {Math.round(((stageCounts.formacao + stageCounts.multiplicacao + stageCounts.concluido) / totalMun) * 100)}% dos municípios já integrados às oficinas de formação ou aos ciclos práticos de multiplicação interna. A taxa média de assiduidade de {avgAttendance}% nos encontros quinzenais confirma o engajamento contínuo dos pontos focais municipais. Como diretriz prioritária para o próximo ciclo, recomenda-se a intensificação das mentorias técnicas na dimensão de Capacidade Técnica ({avgScores.tec}/10) e a consolidação dos repositórios compartilhados para mitigar riscos de descontinuidade administrativa.
               </p>
             </div>
           </section>
@@ -467,7 +467,7 @@ export function GeneralPortfolioReport() {
             <h2 className="print-dossier__section-title">V. PARECER EXECUTIVO & CHANCELAMENTO INSTITUCIONAL</h2>
             <div className="print-dossier__text-box">
               <p>
-                A carteira nacional do Programa RIL Governos na Era da IA demonstra progresso operacional acelerado, com {Math.round(((stageCounts.formacao + stageCounts.multiplicacao + stageCounts.concluido) / totalMun) * 100)}% dos municípios já integrados às oficinas de formação ou estágios avançados de multiplicação. A assiduidade média nos encontros quinzenais atinge {avgAttendance}%, ratificando o alto compromisso dos articuladores locais e a perenidade dos 10 multiplicadores indicados por cada município.
+                A carteira nacional de 40 municípios em gestão de inovação e IA demonstra progresso operacional acelerado, com {Math.round(((stageCounts.formacao + stageCounts.multiplicacao + stageCounts.concluido) / totalMun) * 100)}% dos municípios já integrados às oficinas de formação ou estágios avançados de multiplicação. A assiduidade média nos encontros quinzenais atinge {avgAttendance}%, ratificando o alto compromisso dos articuladores locais e a perenidade dos 10 multiplicadores indicados por cada município.
               </p>
             </div>
 
@@ -475,14 +475,14 @@ export function GeneralPortfolioReport() {
               <div className="print-signature-box">
                 <div className="print-signature-line" />
                 <strong>Thayâne Carvalho</strong>
-                <span>Facilitadora Nacional & Gestão de Projetos RIL</span>
-                <small>Rede de Inovação Local (RIL Brasil)</small>
+                <span>Coordenação Nacional & Gestão de Projetos</span>
+                <small>Portfólio Ágil IA</small>
               </div>
               <div className="print-signature-box">
                 <div className="print-signature-line" />
                 <strong>Coordenação Geral de Transformação Digital</strong>
-                <span>Comitê Gestor Governos na Era da IA</span>
-                <small>Conselho Institucional RIL Brasil</small>
+                <span>Comitê Gestor de Inovação Municipal</span>
+                <small>Conselho de Governança do Programa</small>
               </div>
             </div>
           </section>
@@ -501,7 +501,7 @@ export function GeneralPortfolioReport() {
                     <tr>
                       <th style={{ width: '32%' }}>Município (UF)</th>
                       <th style={{ width: '26%' }}>Trilha de IA</th>
-                      <th style={{ width: '24%' }}>Etapa RIL</th>
+                      <th style={{ width: '24%' }}>Etapa</th>
                       <th style={{ width: '9%', textAlign: 'center' }}>Pres.</th>
                       <th style={{ width: '9%', textAlign: 'center' }}>Status</th>
                     </tr>
@@ -537,7 +537,7 @@ export function GeneralPortfolioReport() {
                     <tr>
                       <th style={{ width: '32%' }}>Município (UF)</th>
                       <th style={{ width: '26%' }}>Trilha de IA</th>
-                      <th style={{ width: '24%' }}>Etapa RIL</th>
+                      <th style={{ width: '24%' }}>Etapa</th>
                       <th style={{ width: '9%', textAlign: 'center' }}>Pres.</th>
                       <th style={{ width: '9%', textAlign: 'center' }}>Status</th>
                     </tr>
@@ -569,12 +569,12 @@ export function GeneralPortfolioReport() {
               </div>
             </section>
 
-            {/* Bloco 8: Parecer da Coordenação RIL e Assinaturas Formais de Homologação */}
+            {/* Bloco 8: Parecer da Coordenação e Assinaturas de Homologação */}
             <section className="print-dossier__section print-break-inside-avoid" style={{ marginTop: '8pt' }}>
               <h2 className="print-dossier__section-title">VIII. TERMO DE CIÊNCIA E VALIDAÇÃO DA COORDENAÇÃO NACIONAL</h2>
               <div className="print-dossier__text-box">
                 <p>
-                  Certificamos que as métricas aqui expostas representam com exatidão o estado operacional da carteira de 40 municípios atendidos pela Rede de Inovação Local no ciclo Governos na Era da IA. A facilitação contínua assegura a integridade metodológica e o alcance das metas de capacitação e inovação pública pactuadas com os gestores municipais.
+                  Certificamos que as métricas aqui expostas representam com exatidão o estado operacional da carteira de 40 municípios participantes do ciclo de transformação digital e inteligência artificial. A facilitação contínua assegura a integridade metodológica e o alcance das metas de capacitação e inovação pública pactuadas com os gestores municipais.
                 </p>
               </div>
 
@@ -582,14 +582,14 @@ export function GeneralPortfolioReport() {
                 <div className="print-signature-box">
                   <div className="print-signature-line" />
                   <strong>Thayâne Carvalho</strong>
-                  <span>Facilitadora Nacional & Gestão de Projetos RIL</span>
-                  <small>Rede de Inovação Local (RIL Brasil)</small>
+                  <span>Coordenação Nacional & Gestão de Projetos</span>
+                  <small>Portfólio Ágil IA</small>
                 </div>
                 <div className="print-signature-box">
                   <div className="print-signature-line" />
                   <strong>Comitê de Governança & Transformação Digital</strong>
                   <span>Representação das Cidades Participantes</span>
-                  <small>Programa Governos na Era da IA (2026)</small>
+                  <small>Gestão Municipal de Inovação e IA (2026)</small>
                 </div>
               </div>
             </section>

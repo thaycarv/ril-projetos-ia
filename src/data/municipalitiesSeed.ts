@@ -80,9 +80,9 @@ function generateDeliverables(currentStage: MunicipalityStage): Deliverable[] {
   const items = [
     { stage: 'alinhamento' as MunicipalityStage, title: 'Termo de Compromisso e Equipe de 10 Líderes', desc: 'Adesão formalizada e indicação das lideranças que multiplicarão o conhecimento.' },
     { stage: 'diagnostico' as MunicipalityStage, title: 'Diagnóstico de Maturidade em IA', desc: 'Avaliação da prontidão institucional, governança de dados e seleção da trilha de IA.' },
-    { stage: 'formacao' as MunicipalityStage, title: 'Oficinas e Capacitação no Portal RIL', desc: 'Participação ativa nas oficinas de aprendizagem e conclusão das trilhas pelos líderes.' },
+    { stage: 'formacao' as MunicipalityStage, title: 'Oficinas e Capacitação na Plataforma', desc: 'Participação ativa nas oficinas de aprendizagem e conclusão das trilhas pelos líderes.' },
     { stage: 'multiplicacao' as MunicipalityStage, title: 'Plano de Aplicação e Multiplicação Local', desc: 'Execução do caso de uso de IA na prefeitura e repasse dos aprendizados aos servidores.' },
-    { stage: 'concluido' as MunicipalityStage, title: 'Síntese de Resultados e Troca entre Pares', desc: 'Evidências consolidadas, síntese para a liderança RIL e integração à comunidade de governos.' },
+    { stage: 'concluido' as MunicipalityStage, title: 'Síntese de Resultados e Troca entre Pares', desc: 'Evidências consolidadas, síntese para a coordenação do programa e integração à comunidade de governos.' },
   ]
 
   return items.map((item, idx) => {
@@ -108,14 +108,14 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Sobral', state: 'CE', region: 'Nordeste', populationSize: 'Médio Porte', population: 212000,
     mayorOrSponsor: 'Secretaria de Gestão e Inovação', focalPoint: 'Mariana Duarte', focalPointContact: 'mariana.duarte@sobral.ce.gov.br',
     stage: 'alinhamento', maturityLevel: 'iniciante', scores: [42, 50, 38, 30], track: 'otimizacao_servicos',
-    biweekly: { lastMeetingDaysAgo: 4, nextMeetingDaysAhead: 10, attendanceRate: 90, summary: 'Apresentação da metodologia RIL e validação dos 10 nomes da equipe municipal.', actionItems: ['Homologar portaria com as 10 lideranças municipais', 'Agendar preenchimento do formulário de diagnóstico'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 4, nextMeetingDaysAhead: 10, attendanceRate: 90, summary: 'Apresentação da metodologia do programa e validação dos 10 nomes da equipe municipal.', actionItems: ['Homologar portaria com as 10 lideranças municipais', 'Agendar preenchimento do formulário de diagnóstico'], status: 'em_dia' },
     multiplicationProgress: 5,
   },
   {
     name: 'Pelotas', state: 'RS', region: 'Sul', populationSize: 'Médio Porte', population: 343000,
     mayorOrSponsor: 'Gabinete da Prefeita', focalPoint: 'Tiago Antunes', focalPointContact: 'tiago.antunes@pelotas.rs.gov.br',
     stage: 'alinhamento', maturityLevel: 'iniciante', scores: [35, 40, 45, 25], track: 'uso_estrategico',
-    attention: { category: 'presenca', reason: 'Dificuldade de conciliar agenda com a equipe de saúde no primeiro encontro.', supportAction: 'Acionar coordenador da RIL para reagendamento conjunto de sensibilização.' },
+    attention: { category: 'presenca', reason: 'Dificuldade de conciliar agenda com a equipe de saúde no primeiro encontro.', supportAction: 'Acionar coordenação do programa para reagendamento conjunto de sensibilização.' },
     biweekly: { lastMeetingDaysAgo: 12, nextMeetingDaysAhead: 2, attendanceRate: 60, summary: 'Primeiro contato realizado com ausência de representantes da Saúde.', actionItems: ['Reagendar alinhamento focal com Secretaria de Saúde', 'Revisar indicação dos 2 suplentes'], status: 'atencao' },
     multiplicationProgress: 0,
   },
@@ -123,7 +123,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Araguaina', state: 'TO', region: 'Norte', populationSize: 'Médio Porte', population: 183000,
     mayorOrSponsor: 'Secretaria de Administração', focalPoint: 'Patricia Nogueira', focalPointContact: 'patricia@araguaina.to.gov.br',
     stage: 'alinhamento', maturityLevel: 'iniciante', scores: [38, 42, 35, 28], track: 'analise_dados',
-    biweekly: { lastMeetingDaysAgo: 3, nextMeetingDaysAhead: 11, attendanceRate: 100, summary: 'Lideranças engajadas e calendário quinzenal pactuado sem ressalvas.', actionItems: ['Criar grupo de comunicação no Portal RIL', 'Iniciar questionário de maturidade'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 3, nextMeetingDaysAhead: 11, attendanceRate: 100, summary: 'Lideranças engajadas e calendário quinzenal pactuado sem ressalvas.', actionItems: ['Criar grupo de comunicação no portal do programa', 'Iniciar questionário de maturidade'], status: 'em_dia' },
     multiplicationProgress: 10,
   },
   {
@@ -152,14 +152,14 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Bento Goncalves', state: 'RS', region: 'Sul', populationSize: 'Médio Porte', population: 123000,
     mayorOrSponsor: 'Secretaria de Modernização Administrativa', focalPoint: 'Clarissa Ferrari', focalPointContact: 'clarissa.ferrari@bentogoncalves.rs.gov.br',
     stage: 'alinhamento', maturityLevel: 'iniciante', scores: [50, 52, 45, 35], track: 'analise_dados',
-    biweekly: { lastMeetingDaysAgo: 2, nextMeetingDaysAhead: 12, attendanceRate: 100, summary: 'Alinhamento completo e grande expectativa da equipe com a ferramenta de IA.', actionItems: ['Liberar acessos ao Portal RIL', 'Preencher autodiagnóstico'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 2, nextMeetingDaysAhead: 12, attendanceRate: 100, summary: 'Alinhamento completo e grande expectativa da equipe com a ferramenta de IA.', actionItems: ['Liberar acessos ao portal do programa', 'Preencher autodiagnóstico'], status: 'em_dia' },
     multiplicationProgress: 10,
   },
   {
     name: 'Crato', state: 'CE', region: 'Nordeste', populationSize: 'Médio Porte', population: 133000,
     mayorOrSponsor: 'Secretaria de Planejamento e Gestão', focalPoint: 'Joao Paulo Teles', focalPointContact: 'joao.teles@crato.ce.gov.br',
     stage: 'alinhamento', maturityLevel: 'iniciante', scores: [36, 40, 32, 26], track: 'uso_estrategico',
-    biweekly: { lastMeetingDaysAgo: 7, nextMeetingDaysAhead: 7, attendanceRate: 85, summary: 'Apresentação do programa aos secretários com presença da liderança RIL.', actionItems: ['Formalizar adesão institucional', 'Cadastrar equipe no portal'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 7, nextMeetingDaysAhead: 7, attendanceRate: 85, summary: 'Apresentação do programa aos secretários com presença da coordenação do programa.', actionItems: ['Formalizar adesão institucional', 'Cadastrar equipe no portal'], status: 'em_dia' },
     multiplicationProgress: 5,
   },
 
@@ -183,7 +183,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Caruaru', state: 'PE', region: 'Nordeste', populationSize: 'Grande Porte', population: 378000,
     mayorOrSponsor: 'Secretaria de Políticas Digitais', focalPoint: 'Marcos Vinicio', focalPointContact: 'marcos.vinicio@caruaru.pe.gov.br',
     stage: 'diagnostico', maturityLevel: 'intermediario', scores: [58, 60, 54, 48], track: 'analise_dados',
-    biweekly: { lastMeetingDaysAgo: 4, nextMeetingDaysAhead: 10, attendanceRate: 90, summary: 'Interpretação conjunta dos resultados do diagnóstico de IA.', actionItems: ['Submeter síntese no Portal RIL', 'Iniciar módulo introdutório da trilha'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 4, nextMeetingDaysAhead: 10, attendanceRate: 90, summary: 'Interpretação conjunta dos resultados do diagnóstico de IA.', actionItems: ['Submeter síntese no portal do programa', 'Iniciar módulo introdutório da trilha'], status: 'em_dia' },
     multiplicationProgress: 30,
   },
   {
@@ -204,7 +204,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Sinop', state: 'MT', region: 'Centro-Oeste', populationSize: 'Médio Porte', population: 196000,
     mayorOrSponsor: 'Secretaria de Gestão e Governo Digital', focalPoint: 'Larissa Moura', focalPointContact: 'larissa.moura@sinop.mt.gov.br',
     stage: 'diagnostico', maturityLevel: 'iniciante', scores: [52, 55, 48, 40], track: 'analise_dados',
-    biweekly: { lastMeetingDaysAgo: 8, nextMeetingDaysAhead: 6, attendanceRate: 90, summary: 'Mapeamento de sistemas legados da secretaria de finanças.', actionItems: ['Avaliar interoperabilidade de dados', 'Concluir relatório RIL'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 8, nextMeetingDaysAhead: 6, attendanceRate: 90, summary: 'Mapeamento de sistemas legados da secretaria de finanças.', actionItems: ['Avaliar interoperabilidade de dados', 'Concluir relatório de maturidade'], status: 'em_dia' },
     multiplicationProgress: 25,
   },
   {
@@ -235,7 +235,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Londrina', state: 'PR', region: 'Sul', populationSize: 'Grande Porte', population: 580000,
     mayorOrSponsor: 'Secretaria de Gestão Pública', focalPoint: 'Bruno Furtado', focalPointContact: 'bruno.furtado@londrina.pr.gov.br',
     stage: 'formacao', maturityLevel: 'avancado', scores: [74, 76, 72, 68], track: 'analise_dados',
-    biweekly: { lastMeetingDaysAgo: 5, nextMeetingDaysAhead: 9, attendanceRate: 95, summary: 'Oficina sobre análise preditiva de evasão escolar realizada com os líderes.', actionItems: ['Subir plano de aplicação no portal', 'Compartilhar boas práticas no fórum RIL'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 5, nextMeetingDaysAhead: 9, attendanceRate: 95, summary: 'Oficina sobre análise preditiva de evasão escolar realizada com os líderes.', actionItems: ['Subir plano de aplicação no portal', 'Compartilhar boas práticas no fórum da rede'], status: 'em_dia' },
     multiplicationProgress: 55,
   },
   {
@@ -249,7 +249,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Joinville', state: 'SC', region: 'Sul', populationSize: 'Grande Porte', population: 616000,
     mayorOrSponsor: 'Secretaria de Inovação e Assuntos Internacionais', focalPoint: 'Marcio Guedes', focalPointContact: 'marcio.guedes@joinville.sc.gov.br',
     stage: 'formacao', maturityLevel: 'avancado', scores: [80, 85, 78, 72], track: 'otimizacao_servicos',
-    biweekly: { lastMeetingDaysAgo: 2, nextMeetingDaysAhead: 12, attendanceRate: 100, summary: 'Líderes desenvolveram guia prático de prompts para secretarias municipais.', actionItems: ['Agendar visita técnica presencial da RIL', 'Testar IA em fila de consultas'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 2, nextMeetingDaysAhead: 12, attendanceRate: 100, summary: 'Líderes desenvolveram guia prático de prompts para secretarias municipais.', actionItems: ['Agendar visita técnica presencial da equipe', 'Testar IA em fila de consultas'], status: 'em_dia' },
     multiplicationProgress: 65,
   },
   {
@@ -264,7 +264,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Araraquara', state: 'SP', region: 'Sudeste', populationSize: 'Médio Porte', population: 242000,
     mayorOrSponsor: 'Secretaria de Planejamento e Participação Popular', focalPoint: 'Luciana Brandao', focalPointContact: 'luciana.brandao@araraquara.sp.gov.br',
     stage: 'formacao', maturityLevel: 'intermediario', scores: [60, 64, 58, 52], track: 'otimizacao_servicos',
-    biweekly: { lastMeetingDaysAgo: 6, nextMeetingDaysAhead: 8, attendanceRate: 90, summary: 'Oficinas sobre uso responsável de IA e proteção de dados em andamento.', actionItems: ['Participar do encontro mensal da comunidade RIL', 'Elaborar roteiro de multiplicação'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 6, nextMeetingDaysAhead: 8, attendanceRate: 90, summary: 'Oficinas sobre uso responsável de IA e proteção de dados em andamento.', actionItems: ['Participar do encontro mensal da comunidade do programa', 'Elaborar roteiro de multiplicação'], status: 'em_dia' },
     multiplicationProgress: 45,
   },
   {
@@ -278,7 +278,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Dourados', state: 'MS', region: 'Centro-Oeste', populationSize: 'Médio Porte', population: 243000,
     mayorOrSponsor: 'Secretaria de Administração', focalPoint: 'Sergio Arruda', focalPointContact: 'sergio.arruda@dourados.ms.gov.br',
     stage: 'formacao', maturityLevel: 'iniciante', scores: [50, 54, 46, 38], track: 'uso_estrategico',
-    biweekly: { lastMeetingDaysAgo: 5, nextMeetingDaysAhead: 9, attendanceRate: 90, summary: 'Oficina presencial da RIL confirmada com grande mobilização das lideranças.', actionItems: ['Confirmar local e infraestrutura para a oficina', 'Revisar material impresso'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 5, nextMeetingDaysAhead: 9, attendanceRate: 90, summary: 'Oficina presencial confirmada com grande mobilização das lideranças.', actionItems: ['Confirmar local e infraestrutura para a oficina', 'Revisar material impresso'], status: 'em_dia' },
     multiplicationProgress: 40,
   },
   {
@@ -292,7 +292,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Vitoria da Conquista', state: 'BA', region: 'Nordeste', populationSize: 'Grande Porte', population: 370000,
     mayorOrSponsor: 'Secretaria de Transparência e Controle', focalPoint: 'Ewerton Prado', focalPointContact: 'ewerton.prado@pmvc.ba.gov.br',
     stage: 'formacao', maturityLevel: 'intermediario', scores: [64, 68, 60, 54], track: 'uso_estrategico',
-    biweekly: { lastMeetingDaysAgo: 4, nextMeetingDaysAhead: 10, attendanceRate: 90, summary: 'Aprofundamento em governança ética de IA no setor público.', actionItems: ['Finalizar módulo 3', 'Registrar plano de ação no Portal RIL'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 4, nextMeetingDaysAhead: 10, attendanceRate: 90, summary: 'Aprofundamento em governança ética de IA no setor público.', actionItems: ['Finalizar módulo 3', 'Registrar plano de ação no portal do programa'], status: 'em_dia' },
     multiplicationProgress: 50,
   },
 
@@ -337,7 +337,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Itabuna', state: 'BA', region: 'Nordeste', populationSize: 'Médio Porte', population: 214000,
     mayorOrSponsor: 'Secretaria de Gestão e Inovação', focalPoint: 'Valeria Simoes', focalPointContact: 'valeria.s@itabuna.ba.gov.br',
     stage: 'multiplicacao', maturityLevel: 'intermediario', scores: [64, 66, 60, 55], track: 'uso_estrategico',
-    biweekly: { lastMeetingDaysAgo: 6, nextMeetingDaysAhead: 8, attendanceRate: 85, summary: 'Adoção de IA no resumo de processos legislativos locais com bons resultados.', actionItems: ['Capacitar equipe da Procuradoria', 'Apresentar dados no encontro da RIL'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 6, nextMeetingDaysAhead: 8, attendanceRate: 85, summary: 'Adoção de IA no resumo de processos legislativos locais com bons resultados.', actionItems: ['Capacitar equipe da Procuradoria', 'Apresentar dados no encontro da rede'], status: 'em_dia' },
     multiplicationProgress: 70,
   },
   {
@@ -360,14 +360,14 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Curitiba', state: 'PR', region: 'Sul', populationSize: 'Capital', population: 1770000,
     mayorOrSponsor: 'Agência de Inovação de Curitiba', focalPoint: 'Cibele Schmidt', focalPointContact: 'cibele.schmidt@curitiba.pr.gov.br',
     stage: 'concluido', maturityLevel: 'avancado', scores: [92, 95, 90, 88], track: 'otimizacao_servicos',
-    biweekly: { lastMeetingDaysAgo: 8, nextMeetingDaysAhead: 20, attendanceRate: 100, summary: 'Ciclo completo com sucesso; 120 servidores capacitados e política municipal de IA publicada.', actionItems: ['Apresentar case na cúpula internacional da RIL', 'Participar como mentor da próxima edição'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 8, nextMeetingDaysAhead: 20, attendanceRate: 100, summary: 'Ciclo completo com sucesso; 120 servidores capacitados e política municipal de IA publicada.', actionItems: ['Apresentar case na cúpula internacional de inovação', 'Participar como mentor da próxima edição'], status: 'em_dia' },
     multiplicationProgress: 100,
   },
   {
     name: 'Recife', state: 'PE', region: 'Nordeste', populationSize: 'Capital', population: 1480000,
     mayorOrSponsor: 'Empresa Municipal de Informática (EMPREL)', focalPoint: 'Felipe Cabral', focalPointContact: 'felipe.cabral@recife.pe.gov.br',
     stage: 'concluido', maturityLevel: 'avancado', scores: [90, 92, 88, 86], track: 'analise_dados',
-    biweekly: { lastMeetingDaysAgo: 10, nextMeetingDaysAhead: 20, attendanceRate: 100, summary: 'IA integrada ao atendimento no portal cidadão; equipe institucionalizada.', actionItems: ['Documentar aprendizados na biblioteca RIL', 'Compartilhar repositório aberto de prompts'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 10, nextMeetingDaysAhead: 20, attendanceRate: 100, summary: 'IA integrada ao atendimento no portal cidadão; equipe institucionalizada.', actionItems: ['Documentar aprendizados na biblioteca de práticas', 'Compartilhar repositório aberto de prompts'], status: 'em_dia' },
     multiplicationProgress: 100,
   },
   {
@@ -381,7 +381,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Belo Horizonte', state: 'MG', region: 'Sudeste', populationSize: 'Capital', population: 2310000,
     mayorOrSponsor: 'Secretaria de Planejamento e TI (Prodabel)', focalPoint: 'Leonardo Rezende', focalPointContact: 'leonardo.r@pbh.gov.br',
     stage: 'concluido', maturityLevel: 'avancado', scores: [94, 96, 92, 90], track: 'uso_estrategico',
-    biweekly: { lastMeetingDaysAgo: 12, nextMeetingDaysAhead: 20, attendanceRate: 100, summary: 'Guia de IA ética para servidores homologado pelo comitê de governança.', actionItems: ['Receber certificado de conclusão RIL', 'Disponibilizar material na comunidade'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 12, nextMeetingDaysAhead: 20, attendanceRate: 100, summary: 'Guia de IA ética para servidores homologado pelo comitê de governança.', actionItems: ['Receber certificado de conclusão do programa', 'Disponibilizar material na comunidade'], status: 'em_dia' },
     multiplicationProgress: 100,
   },
   {
@@ -395,7 +395,7 @@ const rawMunicipalities: SeedDef[] = [
     name: 'Palmas', state: 'TO', region: 'Norte', populationSize: 'Capital', population: 302000,
     mayorOrSponsor: 'Secretaria de Transparência e Inovação', focalPoint: 'Marcos Aurelio', focalPointContact: 'marcos.aurelio@palmas.to.gov.br',
     stage: 'concluido', maturityLevel: 'intermediario', scores: [80, 82, 76, 74], track: 'uso_estrategico',
-    biweekly: { lastMeetingDaysAgo: 11, nextMeetingDaysAhead: 20, attendanceRate: 90, summary: 'Síntese de impacto aprovada com menção honrosa pela mobilização dos servidores.', actionItems: ['Emitir relatório de encerramento', 'Integrar rede de egressos RIL'], status: 'em_dia' },
+    biweekly: { lastMeetingDaysAgo: 11, nextMeetingDaysAhead: 20, attendanceRate: 90, summary: 'Síntese de impacto aprovada com menção honrosa pela mobilização dos servidores.', actionItems: ['Emitir relatório de encerramento', 'Integrar rede de municípios egressos'], status: 'em_dia' },
     multiplicationProgress: 100,
   },
 ]
