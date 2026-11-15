@@ -294,7 +294,7 @@ export function MunicipalityDetailView() {
             </strong>
             <p>{selectedMunicipality.attention.reason}</p>
             <small>
-              <strong>Ação combinada com a liderança RIL:</strong> {selectedMunicipality.attention.supportAction}
+              <strong>Ação combinada com a coordenação:</strong> {selectedMunicipality.attention.supportAction}
             </small>
             <div style={{ marginTop: '8px' }}>
               <button
@@ -438,11 +438,11 @@ export function MunicipalityDetailView() {
           </section>
         </div>
 
-        {/* Seção 3: Entregas do Programa RIL */}
+        {/* Seção 3: Entregas do Programa */}
         <section className="fiche-section">
           <h3 className="fiche-section__title">
             <CheckSquare size={18} />
-            <span>Entregas do Programa RIL (Clique para alternar status)</span>
+            <span>Entregas do Programa (Clique para alternar status)</span>
           </h3>
 
           <div className="deliverables-list">
@@ -675,7 +675,7 @@ export function MunicipalityDetailView() {
                         <span className="report-choice-card__items-title">Conteúdo incluído:</span>
                         <ul>
                           <li>Todo o conteúdo do Relatório simples</li>
-                          <li>Status detalhado dos 4 entregáveis RIL com critérios de aceite</li>
+                          <li>Status detalhado dos 4 entregáveis do ciclo com critérios de aceite</li>
                           <li>Tabela completa dos 10 multiplicadores locais com contatos</li>
                           <li>Matriz de riscos operacionais e estratégias de mitigação</li>
                           <li>Parecer analítico da facilitação e termo de validação</li>
@@ -717,7 +717,7 @@ export function MunicipalityDetailView() {
           <article className={`print-dossier print-dossier--${reportType}`} aria-hidden="true">
             <header className="print-dossier__header">
           <div className="print-dossier__brand">
-            <span className="print-dossier__badge">REDE DE INOVAÇÃO LOCAL (RIL BRASIL)</span>
+            <span className="print-dossier__badge">PORTFÓLIO ÁGIL IA</span>
           </div>
           <h1 className="print-dossier__title">
             DOSSIÊ EXECUTIVO DE GESTÃO MUNICIPAL: {selectedMunicipality.name.toUpperCase()} ({selectedMunicipality.state})
@@ -730,7 +730,7 @@ export function MunicipalityDetailView() {
               <strong>Data de Emissão:</strong> {new Date().toLocaleDateString('pt-BR')}
             </div>
             <div>
-              <strong>Facilitadora RIL:</strong> Thayâne Carvalho (Gestão de Projetos & Facilitação)
+              <strong>Facilitadora:</strong> Thayâne Carvalho (Gestão de Projetos & Facilitação)
             </div>
           </div>
         </header>
@@ -773,7 +773,7 @@ export function MunicipalityDetailView() {
                     </span>
                   ) : (
                     <span style={{ color: '#166534', fontWeight: 600 }}>
-                      [CONFORME] Operação regular e alinhada ao cronograma pactuado com a facilitação RIL.
+                      [CONFORME] Operação regular e alinhada ao cronograma pactuado com a coordenação do programa.
                     </span>
                   )}
                 </td>
@@ -796,7 +796,7 @@ export function MunicipalityDetailView() {
                 <th style={{ width: '30%' }}>Dimensão Avaliada</th>
                 <th style={{ width: '15%', textAlign: 'center' }}>Pontuação</th>
                 <th style={{ width: '20%' }}>Classificação</th>
-                <th style={{ width: '35%' }}>Diretriz Técnica RIL</th>
+                <th style={{ width: '35%' }}>Diretriz Técnica</th>
               </tr>
             </thead>
             <tbody>
@@ -871,10 +871,10 @@ export function MunicipalityDetailView() {
           </div>
         </section>
 
-        {/* Bloco 4 (Página 1): Parecer Analítico da Facilitação RIL */}
+        {/* Bloco 4 (Página 1): Parecer Analítico da Facilitação */}
         {reportType === 'completo' && (
           <section className="print-dossier__section">
-            <h2 className="print-dossier__section-title">IV. PARECER ANALÍTICO DA FACILITAÇÃO RIL</h2>
+            <h2 className="print-dossier__section-title">IV. PARECER ANALÍTICO DA FACILITAÇÃO</h2>
             <div className="print-dossier__text-box" style={{ marginBottom: '4pt' }}>
               <p>
                 <strong>Avaliação de Engajamento e Prontidão Local: </strong>
@@ -882,7 +882,7 @@ export function MunicipalityDetailView() {
                   ? `O município de ${selectedMunicipality.name} demonstra alinhamento institucional com a coordenação local e assiduidade de ${selectedMunicipality.biweeklyMeeting.attendanceRate}% nos encontros de facilitação. O plano de ação prioriza a estruturação dos repositórios municipais e salvaguardas éticas de LGPD antes da liberação de soluções abertas de inteligência artificial.`
                   : selectedMunicipality.maturityLevel === 'intermediario'
                   ? `O município de ${selectedMunicipality.name} apresenta maturidade intermediária consistente (${selectedMunicipality.biweeklyMeeting.attendanceRate}% de presença), com equipes capacitadas para automação de rotinas no serviço público e homologação de casos de uso prioritários.`
-                  : `O município de ${selectedMunicipality.name} atua como polo multiplicador da Rede RIL, com governança de dados estruturada e alta taxa de multiplicação interna (${selectedMunicipality.multiplicationProgress}%). Prontidão plena para compartilhamento de evidências entre governos.`
+                  : `O município de ${selectedMunicipality.name} atua como polo multiplicador da rede municipal, com governança de dados estruturada e alta taxa de multiplicação interna (${selectedMunicipality.multiplicationProgress}%). Prontidão plena para compartilhamento de evidências entre governos.`
                 }
               </p>
             </div>
@@ -921,7 +921,7 @@ export function MunicipalityDetailView() {
           <>
             {/* Bloco 5: Cronograma de Entregas na Página 1 */}
             <section className="print-dossier__section">
-              <h2 className="print-dossier__section-title">V. CRONOGRAMA & STATUS DETALHADO DAS ENTREGAS RIL</h2>
+              <h2 className="print-dossier__section-title">V. CRONOGRAMA & STATUS DETALHADO DAS ENTREGAS</h2>
               <table className="print-dossier__table print-dossier__table--deliverables">
                 <thead>
                   <tr>
@@ -1013,7 +1013,7 @@ export function MunicipalityDetailView() {
               <h2 className="print-dossier__section-title">VIII. TERMO DE CIÊNCIA E VALIDAÇÃO OPERACIONAL</h2>
               <div className="print-dossier__text-box">
                 <p>
-                  As informações registradas neste dossiê refletem as evidências apuradas nos encontros quinzenais de facilitação, nos diagnósticos de maturidade e no acompanhamento dos entregáveis da jornada de transformação digital e inteligência artificial da Rede de Inovação Local (RIL).
+                  As informações registradas neste dossiê refletem as evidências apuradas nos encontros quinzenais de facilitação, nos diagnósticos de maturidade e no acompanhamento dos entregáveis da jornada de transformação digital e inteligência artificial municipal.
                 </p>
               </div>
 
@@ -1022,7 +1022,7 @@ export function MunicipalityDetailView() {
                   <div className="print-signature-line" />
                   <strong>Thayâne Carvalho</strong>
                   <span>Facilitadora do Programa & Gestão de Projetos</span>
-                  <small>Rede de Inovação Local (RIL Brasil)</small>
+                  <small>Portfólio Ágil IA</small>
                 </div>
                 <div className="print-signature-box">
                   <div className="print-signature-line" />

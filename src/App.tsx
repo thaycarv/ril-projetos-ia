@@ -36,6 +36,9 @@ function ProgramApp() {
         ) : (
           <MunicipalityDetailView />
         )}
+        <footer className="app-inspiration-note">
+          Projeto conceitual inspirado no programa Governos na Era da IA (RIL).
+        </footer>
       </div>
     </div>
   )

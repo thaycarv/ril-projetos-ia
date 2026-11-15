@@ -6,7 +6,7 @@ import { GeneralPortfolioReport } from './GeneralPortfolioReport'
 const STAGES_CONFIG: Array<{ id: MunicipalityStage; title: string; desc: string }> = [
   { id: 'alinhamento', title: '1. Entrada & Alinhamento', desc: 'Adesão formalizada e indicação dos 10 líderes municipais.' },
   { id: 'diagnostico', title: '2. Diagnóstico de IA', desc: 'Avaliação de maturidade em dados/IA e escolha da trilha.' },
-  { id: 'formacao', title: '3. Formação & Trilhas', desc: 'Participação nas oficinas e capacitação no Portal RIL.' },
+  { id: 'formacao', title: '3. Formação & Trilhas', desc: 'Participação nas oficinas e capacitação na plataforma.' },
   { id: 'multiplicacao', title: '4. Aplicação & Multiplicação', desc: 'Prática em campo e multiplicação para outros servidores.' },
   { id: 'concluido', title: '5. Ciclo Concluído', desc: 'Entregas validadas, síntese registrada e rede de pares.' },
 ]
