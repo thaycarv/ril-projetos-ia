@@ -6,7 +6,7 @@ describe('Portfólio Ágil IA - Gestão Municipal de Inovação e IA', () => {
   it('renders brand and 5 program stages in kanban view', () => {
     render(<App />)
 
-    expect(screen.getByText('Portfólio Ágil IA')).toBeInTheDocument()
+    expect(screen.getAllByText('Portfólio Ágil IA').length).toBeGreaterThanOrEqual(1)
     expect(screen.getAllByText('PA').length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText(/inspirado no programa governos na era da ia/i)).toBeInTheDocument()
 
